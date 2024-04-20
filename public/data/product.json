@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Thịt heo",
+        "description":"description goes here",
+        "price": 40000
+    },
+    {
+        "id": 2,
+        "name": "rau má",
+        "description":"description goes here",
+        "price": 990
+    },
+    {
+        "id": 3,
+        "name": "Trứng",
+        "description":"aaaaaaaâ",
+        "price": 10000
+    }
+]
