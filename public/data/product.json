@@ -1,20 +1,52 @@
 [
-    {
-        "id": 1,
-        "name": "Thịt heo",
-        "description":"description goes here",
-        "price": 40000
-    },
-    {
-        "id": 2,
-        "name": "rau má",
-        "description":"description goes here",
-        "price": 990
-    },
-    {
-        "id": 3,
-        "name": "Trứng",
-        "description":"aaaaaaaâ",
-        "price": 10000
-    }
+  {
+    "id": 1,
+    "name": "Thịt heo",
+    "description": "oink oink",
+    "price": 40000,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":30000,
+    "inventory": 52,
+    
+    "sold": 2,
+    "images": ["https://firebasestorage.googleapis.com/v0/b/bnb-uit.appspot.com/o/perfume%2Femily-wang-a5917t2ea8I-unsplash.jpg?alt=media&token=cd4328ea-e8a9-4d65-bbbe-c592a83be1ba","public/egg.png"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 2,
+    "name": "Gạo",
+    "description": "description goes here",
+    "price": 990,
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":300,
+    "inventory": 92,
+    
+    "sold": 52,
+    "images": ["public/rice.png"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 3,
+    "name": "Trứng",
+    "description": "aaaaaaaâ",
+    "price": 10000,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":30000,
+    "inventory": 52,
+    
+    "sold": 2,
+    "images": ["public/egg.png"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  }
 ]
