@@ -35,13 +35,13 @@ export default function Page() {
         </Col>
         </Row>
         
-      <Row justify="center" align="middle" className='mb-20' >
+      <Row justify="center" align="middle" className='mb-10' >
         <Col span={5} className='bg-primary_blue pb-5 pt-20'style={{ minHeight: '340px' }} >
           <Image src={reason1Image} width={100} height={100}  alt='fresh' className='text-center outline mx-auto'/>
           <h1 className="text-xl font-semibold align-middle text-center">
             Provide only the freshest ingredients
           </h1>
-          <h2 className="text-lg  text-center px-8 text-slate-600">
+          <h2 className="text-lg  text-center px-8 text-white">
           We prioritize freshness by sourcing directly from trusted suppliers. Enjoy top-quality ingredients in every order.
           </h2>
         </Col>
@@ -64,7 +64,7 @@ export default function Page() {
           </h2>
         </Col>
       </Row>
-      
+      <hr className=' mb-20 w-5/6 mx-auto '></hr>
     </div>
 
   )
