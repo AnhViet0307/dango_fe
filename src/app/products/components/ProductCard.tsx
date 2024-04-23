@@ -5,13 +5,14 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Typography, message } from "antd";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface IProductCardProps {
   data: IProduct;
 }
 
 const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   const addToCart = useCartStore((state) => state.addToCart);
   const loggedIn = useAuthStore((state) => state.loggedIn);
@@ -21,7 +22,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
 
   const handleClickCart: React.MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target !== buttonRef.current) {
-      navigate(`product/${data.id}`);
+      navigate.push(`products/${data.id}`);
     }
   };
 
@@ -51,7 +52,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
             ellipsis={{ rows: 3 }}
             className="mt-2 mb-4 text-xs leading-5 text-neutral-500"
           >
-            {data.desc}
+            {data.description}
           </Typography.Paragraph>
         </div>
         <div className="flex items-center justify-between">
@@ -59,7 +60,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
             {`${new Intl.NumberFormat("vi-VN", {
               style: "currency",
               currency: "VND",
-            }).format(JSON.parse(data.price as string))}`}
+            }).format(JSON.parse(data.price as unknown as string))}`}
             <span className="text-base font-normal text-neutral-700">{` (${data.inventory})`}</span>
           </Typography.Title>
           {data.inventory > 0 ? (

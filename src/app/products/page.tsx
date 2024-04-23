@@ -12,19 +12,20 @@ import React, { useEffect, useRef, useState } from "react";
 import Banner from "./components/Banner";
 import FilterBar from "./components/FilterBar";
 import ProductCard from "./components/ProductCard";
-
+import Topbar from "@/components/Topbar";
 import Records from "@p/data/product.json";
 import { IProduct } from "@/interfaces/IProduct";
 
-const ProductsPage: React.FunctionComponent = () => {
+const ProductsPage: React.FC = () => {
   const isLoading = useAppStore((state) => state.isLoading);
   const setIsLoading = useAppStore((state) => state.setIsLoading);
-  const products = useProductStore((state) => state.products);
+  //const products = useProductStore((state) => state.products);
+   const [products, setProducts] = useState<IProduct[]>([]);
   const filteredProducts = useProductStore((state) => state.filteredProducts);
   const setFilteredProducts = useProductStore(
     (state) => state.setFilteredProducts
   );
-  const setProducts = useProductStore((state) => state.setProducts);
+  //const setProducts = useProductStore((state) => state.setProducts);
   const setSortBy = useProductStore((state) => state.setSortBy);
   const setCategories = useCategoriesStore((state) => state.setCategories);
   const setBrands = useBrandStore((state) => state.setBrands);
@@ -42,16 +43,14 @@ const ProductsPage: React.FunctionComponent = () => {
       setIsLoading(true);
       try {
         //const { data: productData } = await getAllProducts();
-        const foundProduct= Records.find(
-          (product) => product.id
-            // === productIdNumber
-    );
-
+        const foundProduct= Records as IProduct[]
+        const productData: IProduct[] = Records;
 
         //const { data: categoryData } = await getAllCategories();
         //const { data: brandData } = await getAllBrands();
         
-        setProducts(foundProduct);
+        setProducts(productData);
+        setFilteredProducts(productData);
         //setCategories(categoryData);
         //setBrands(brandData);
         setIsLoading(false);
@@ -60,7 +59,7 @@ const ProductsPage: React.FunctionComponent = () => {
         console.log(error);
       }
     };
-    //fetchProductData.current();
+    fetchProductData.current();
   }, []);
 
   const handleSearchProduct = async () => {
@@ -82,6 +81,7 @@ const ProductsPage: React.FunctionComponent = () => {
 
   return (
     <div>
+      <Topbar />
       <Banner />
       <Row className="my-10 px-28" gutter={56}>
         <Col span={6}>{isLoading ? <Skeleton /> : <FilterBar />}</Col>
@@ -138,7 +138,8 @@ const ProductsPage: React.FunctionComponent = () => {
                 align: "center",
                 defaultPageSize: 9,
               }}
-              dataSource={filteredProducts || products}
+              
+              dataSource={ filteredProducts ||products}
               renderItem={(item) => (
                 <List.Item>
                   <ProductCard data={item} />

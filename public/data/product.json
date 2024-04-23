@@ -14,7 +14,7 @@
     "images": ["https://firebasestorage.googleapis.com/v0/b/bnb-uit.appspot.com/o/perfume%2Femily-wang-a5917t2ea8I-unsplash.jpg?alt=media&token=cd4328ea-e8a9-4d65-bbbe-c592a83be1ba","public/egg.png"],
     "createdAt": "10/1/2024",
     "updatedAt": "21/2/2024",
-    "deletedAt": ""
+    "deletedAt": " "
   },
   {
     "id": 2,
@@ -27,10 +27,10 @@
     "inventory": 92,
     
     "sold": 52,
-    "images": ["public/rice.png"],
+    "images": ["https://cdnimg.carepac.com/wp-content/uploads/2022/04/rice-main.png","https://static.vecteezy.com/system/resources/previews/001/937/815/non_2x/rice-package-mockup-thailand-food-products-illustration-vector.jpg"],
     "createdAt": "10/1/2024",
     "updatedAt": "21/2/2024",
-    "deletedAt": ""
+    "deletedAt": " "
   },
   {
     "id": 3,
@@ -47,6 +47,6 @@
     "images": ["public/egg.png"],
     "createdAt": "10/1/2024",
     "updatedAt": "21/2/2024",
-    "deletedAt": ""
+    "deletedAt": " "
   }
 ]
