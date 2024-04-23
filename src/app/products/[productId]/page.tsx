@@ -10,7 +10,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useCartStore } from "@/stores/useCartStore";
 import { useProductStore } from "@/stores/useProductStore";
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter,usePathname } from "next/navigation";
 import { IProduct } from "@/interfaces/IProduct";
 
 
@@ -47,7 +47,7 @@ export default function ProductDetails({
   //   description: "",
   // });
 
-
+const pathname = usePathname();
   const navigate = useRouter();
   //const params: any = useParams();
   const productId: string | number = JSON.parse(params.productId);
@@ -61,7 +61,11 @@ export default function ProductDetails({
   const [previewImage, setPreviewImage] = useState<string>();
 
   const fetchProductData = useRef<any>();
-
+  const handleCheckout = () => {
+    const selectedOrders = { orders: [{ ...product, quantity }] };
+    history.pushState({ orders: JSON.stringify(selectedOrders) }, "", pathname + "/checkout");
+        navigate.push("checkout");
+  }
 
   
 
@@ -259,11 +263,7 @@ export default function ProductDetails({
                     type="primary"
                     className="w-48 bg-primary"
                     size="large"
-                    onClick={() =>
-                      navigate.push("/checkout", {
-                        state: { orders: [{ ...product, quantity }] },
-                      })
-                    }
+                    onClick={handleCheckout}
                   >
                     Checkout
                   </Button>

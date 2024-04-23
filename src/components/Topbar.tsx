@@ -63,7 +63,7 @@ const Topbar: React.FunctionComponent = () => {
     //   ];
 
     return (
-        <div className="flex justify-between w-full bg-primary_blue ">
+        <div className="flex justify-between w-full bg-primary_blue px-10 py-2" >
             <div
                 className="flex items-center gap-3 cursor-pointer"
                 onClick={() => navigate.push("/")}
@@ -77,7 +77,7 @@ const Topbar: React.FunctionComponent = () => {
             </div>
         
         <div className="flex items-center gap-4 ">
-        <SearchBar/>
+        {/* s<SearchBar/> */}
             <Badge count={cart.length} size="default">
               <div
                 className="text-xl cursor-pointer"
