@@ -137,31 +137,15 @@ const pathname = usePathname();
 
   return (
     <>
-      <div className=" mb-20 outline outline-red-800 mb-20">
+      <div className=" mb-20 ">
         <Topbar/>
       </div>
-      {/* <div className="  px-32 py-10  outline outline-red-800">
-        
-                <h1>Detail for product {product?.id}</h1>
-        <div>
-            <p>Name: {product?.name}</p>
-                <p>Description: {product?.description}</p>
-          <p>Price: {product?.price}</p>
-          
-           
-        </div>
-                
-            
-       
-    
-
-
-      </div> */}
+      
 
       <div className="px-32 py-10">
       <Typography.Title style={{ margin: 0 }}>{product?.name}</Typography.Title>
       {/* PRODUCT INFORMATION */}
-      <Row className="mt-6" gutter={40}>
+      <Row className="mt-6 " gutter={40}>
         {/* IMAGES */}
         <Col span={12}>
           <div className="w-full h-[435px]">
@@ -170,17 +154,19 @@ const pathname = usePathname();
             ) : (
               <img
                 src={previewImage} alt=""
-                className="object-cover w-full h-full rounded-md"
+                className="object-cover w-full h-full rounded-md border-2  border-slate-350"
               />
             )}
           </div>
           <Row gutter={34} justify={"start"} className="mt-8 h-36">
             {product?.images.map((image, index) => (
+              // eslint-disable-next-line react/jsx-key
               <Col span={8} className="h-full">
                 <img
                   key={index}
                   src={image}
-                  className={`object-cover w-full h-full rounded-md cursor-pointer ${
+                  alt="moremimage"
+                  className={`object-cover w-full h-full rounded-md cursor-pointer border-2  border-slate-350 ${
                     image === previewImage ? "opacity-100" : "opacity-75"
                   }`}
                   onMouseEnter={() => setPreviewImage(image)}
@@ -261,7 +247,7 @@ const pathname = usePathname();
                 <Col>
                   <Button
                     type="primary"
-                    className="w-48 bg-primary"
+                    className="w-48 bg-primary_blue"
                     size="large"
                     onClick={handleCheckout}
                   >

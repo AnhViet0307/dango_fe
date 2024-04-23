@@ -96,7 +96,7 @@ const CartTable = () => {
     {
       render: (value, record, index) => (
         <Button type="text" danger onClick={() => removeFromCart(record.id)}>
-          <DeleteOutlined />
+          <DeleteOutlined  className="text-xl p-auto"/>
         </Button>
       ),
     },
@@ -146,7 +146,7 @@ const CartTable = () => {
           disabled={selectedRowKeys.length <= 0}
           type="primary"
           size="large"
-          className="bg-primary"
+          className="bg-primary_blue"
           onClick={handleCheckout}
         >
           Checkout

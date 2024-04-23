@@ -67,7 +67,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
             <Button
               ref={buttonRef}
               type="primary"
-              className="bg-primary"
+              className="bg-secondary_blue"
               onClick={() => {
                 addToCart({ ...data, quantity: 1 });
                 message.success("Item is added to cart!");

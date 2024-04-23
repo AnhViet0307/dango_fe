@@ -16,6 +16,23 @@ import Topbar from "@/components/Topbar";
 import Records from "@p/data/product.json";
 import { IProduct } from "@/interfaces/IProduct";
 
+
+export function searchProductsByNameJSON(searchValue: string): Promise<IProduct[]> {
+  return new Promise((resolve, reject) => {
+    try {
+      // Filter products based on the searchValue (case-insensitive)
+      const filteredProducts = Records.filter((product) =>
+        product.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+
+      resolve(filteredProducts);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+
 const ProductsPage: React.FC = () => {
   const isLoading = useAppStore((state) => state.isLoading);
   const setIsLoading = useAppStore((state) => state.setIsLoading);
@@ -62,22 +79,27 @@ const ProductsPage: React.FC = () => {
     fetchProductData.current();
   }, []);
 
+  //api call
   const handleSearchProduct = async () => {
-    setIsLoading(true);
+    //setIsLoading(true);
     try {
-      if (searchValue && searchValue !== "") {
-        const { data } = await searchProductsByName(searchValue);
-        setProducts(data);
+      if (searchValue.trim() !== "") {
+        //const { data } = await searchProductsByName(searchValue);
+        const filteredProducts = await searchProductsByNameJSON(searchValue);
+        setProducts(filteredProducts);
       } else {
-        const { data } = await getAllProducts();
-        setProducts(data);
+        //const { data } = await getAllProducts();
+        
+        setProducts(Records);
       }
       setIsLoading(false);
     } catch (error) {
-      setIsLoading(false);
+      //setIsLoading(false);
       console.log(error);
     }
   };
+
+
 
   return (
     <div>
@@ -92,6 +114,7 @@ const ProductsPage: React.FC = () => {
                 size="large"
                 prefix={<SearchOutlined />}
                 placeholder="Search..."
+                value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </Col>
@@ -99,7 +122,7 @@ const ProductsPage: React.FC = () => {
               <Button
                 onClick={handleSearchProduct}
                 type="primary"
-                className="w-full bg-primary"
+                className="w-full bg-primary_blue"
                 size="large"
               >
                 Search
@@ -116,7 +139,7 @@ const ProductsPage: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="text-base text-neutral-500">Sort by</span>
               <Select
-                defaultValue="low"
+                defaultValue="newest"
                 className="w-40 p-0 m-0 sorted-by-select"
                 bordered={false}
                 options={[
@@ -132,11 +155,11 @@ const ProductsPage: React.FC = () => {
 
           {!isLoading ? (
             <List
-              grid={{ gutter: 24, column: 3 }}
+              grid={{ gutter: 24, column: 4 }}
               pagination={{
                 position: "bottom",
                 align: "center",
-                defaultPageSize: 9,
+                defaultPageSize: 12,
               }}
               
               dataSource={ filteredProducts ||products}

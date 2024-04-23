@@ -71,13 +71,18 @@ const Topbar: React.FunctionComponent = () => {
           
           <Image src={'/Logo.png'} alt={'logo'} width={150} height={50}  className="ml-20p mb-20p" />
 
-            {/* <Typography.Title level={3} style={{ margin: 0 }}>
-                Beauty in Bloom
-            </Typography.Title> */}
+           
             </div>
         
         <div className="flex items-center gap-4 ">
-        {/* s<SearchBar/> */}
+          {/* s<SearchBar/> */}
+          <Button
+                    type="text"
+                    className="shadow-none text-white mr-5 text-base align-middle font-bold text-center"
+                    onClick={() => navigate.push("/products")}
+                >
+                    Products
+                </Button>
             <Badge count={cart.length} size="default">
               <div
                 className="text-xl cursor-pointer"
@@ -116,14 +121,14 @@ const Topbar: React.FunctionComponent = () => {
                 <>
                 <Button
                     type="primary"
-                    className="shadow-none bg-neutral-200 text-neutral-700"
+                    className="shadow-none text-base bg-neutral-200 hover:bg-secondary_blue text-neutral-700"
                     onClick={() => navigate.push("/auth/sign-up")}
                 >
                     Sign up
                 </Button>
                 <Button
                     type="primary"
-                    className="shadow-none bg-primary"
+                    className=" shadow-none text-base "
                     onClick={() => navigate.push("/auth/login")}
                 >
                     Login

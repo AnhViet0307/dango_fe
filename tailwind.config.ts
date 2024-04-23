@@ -18,7 +18,7 @@ const config: Config = {
         secondary_blue: '#00A7F4',
         tertiary_blue: '#00D5E6',
         primary_green: '#70FACB',
-        primary_yellow:'FFC220'
+        primary_yellow:'#FFC220'
       },
     },
     
