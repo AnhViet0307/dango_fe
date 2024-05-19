@@ -137,7 +137,7 @@ const pathname = usePathname();
 
   return (
     <>
-      <div className=" mb-20 ">
+      <div className="  ">
         <Topbar/>
       </div>
       
