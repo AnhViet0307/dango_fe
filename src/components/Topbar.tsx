@@ -1,6 +1,6 @@
 'use client'
 import "@/app/globals.css";
-import { useUser } from "@auth0/nextjs-auth0/client";
+
 import {
     BarsOutlined,
     LogoutOutlined,
@@ -25,14 +25,15 @@ import React, {useState} from "react";
 import { useRouter } from "next/navigation";
 
 
+
 import Image from "next/image";
 
 
 const Topbar: React.FunctionComponent = () => { 
     const navigate = useRouter();
-  const { user, error, isLoading } = useUser();
+  //const { user, error, isLoading } = useUser();
     
-  
+    
     const [open, setOpen] = useState<boolean>(false);
     const profile = useAuthStore((state) => state.profile);
     const cart = useCartStore((state) => state.cart);
@@ -125,16 +126,16 @@ const Topbar: React.FunctionComponent = () => {
                 <Button
                     type="primary"
                     className="shadow-none text-base bg-neutral-200 hover:bg-secondary_blue text-neutral-700"
-                    //onClick={() => navigate.push("/auth/sign-up")}
+                    onClick={() => navigate.push("/sign-up")}
                 >
-                   <a href="/api/auth/signup">Sign up</a>
+                   {/* <a href="/api/auth/signup">Sign up</a> */}Sign-up
                 </Button>
                 <Button
                     type="primary"
                     className=" shadow-none text-base "
-                    //onClick={() => navigate.push("/api/auth/login")}
+                    onClick={() => navigate.push("/sign-in")}
                 >
-                    <a href="/api/auth/login">Login</a>
+                    {/* <a href="/api/auth/login">Login</a> */}Login
                 </Button>
               </>
             )}
