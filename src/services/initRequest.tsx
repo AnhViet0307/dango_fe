@@ -11,7 +11,7 @@ import {
   } from "axios";
   
   const requestConfig: AxiosRequestConfig = {
-    baseURL: import.meta.env.VITE_SERVER_URL,
+    baseURL: 'http://localhost:3000',
     timeout: 20000,
     headers: {
       "Content-Type": "application/json",

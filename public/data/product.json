@@ -1,0 +1,341 @@
+[
+  {
+    "id": 1,
+    "name": "Pork",
+    "description": "oink oink",
+    "price": 40000,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":30000,
+    "inventory": 52,
+    
+    "sold": 2,
+    "images": ["https://static.vecteezy.com/system/resources/previews/005/237/716/original/premium-quality-pork-pack-packaging-design-label-hand-drawn-pork-vector.jpg","https://kbtfoodpack.com/wp-content/uploads/2020/04/pork-fillet-skin-pack.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 2,
+    "name": "Rice",
+    "description": "description goes here",
+    "price": 990,
+    "brandId":1,
+    "categoryId":4,
+    "importPrice":300,
+    "inventory": 92,
+    
+    "sold": 52,
+    "images": ["https://cdnimg.carepac.com/wp-content/uploads/2022/04/RICE-Final-05.png","https://www.allrecipes.com/thmb/RKpnSHLUDT2klppYgx8jAF47GyM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/52490-PuertoRicanSteamedRice-DDMFS-061-4x3-3c3da714aa614037ad1c135ec303526d.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 3,
+    "name": "Chicken Egg",
+    "description": "aaaaaaaâ",
+    "price": 10000,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":30000,
+    "inventory": 52,
+    
+    "sold": 2,
+    "images": ["https://i.pinimg.com/736x/2c/55/d6/2c55d6bc4e02f4ef94718c4171ac25cb.jpg","https://5.imimg.com/data5/SC/MV/AB/SELLER-7668657/egg-packing-boxes.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 4,
+    "name": "Raw Chicken Thigh",
+    "description": "Cookcoo",
+    "price": 34500,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":20000,
+    "inventory": 51,
+    
+    "sold": 32,
+    "images": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDfOWHN6t5vPNdUO5dRmlPVvW1fIysJdJoTTcoFKH_Lg&s"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 5,
+    "name": "Beef",
+    "description": "Moo moo",
+    "price": 54000,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":30000,
+    "inventory": 102,
+    
+    "sold": 52,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8139/238859/bhx/nam-bo-tuoi-ngon-tui-1kg-202105081645021073.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 6,
+    "name": "Duck meat",
+    "description": "Quack Quack",
+    "price": 116400,
+
+    "brandId":1,
+    "categoryId":1,
+    "importPrice":80000,
+    "inventory": 102,
+    
+    "sold": 52,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8790/303470/bhx/nua-con-vit-202402271111289359.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 7,
+    "name": "Banana (500g)",
+    "description": "",
+    "price": 15400,
+
+    "brandId":1,
+    "categoryId":2,
+    "importPrice":5000,
+    "inventory": 41,
+    
+    "sold": 22,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8788/228923/bhx/chuoi-gia-giong-nam-my-1kg-202012021040388708.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+ {
+    "id": 8,
+    "name": "Seedless Watermelon (2kg)",
+    "description": "Watermelon",
+    "price": 43800,
+
+    "brandId":1,
+    "categoryId":2,
+    "importPrice":30000,
+    "inventory": 50,
+    
+    "sold": 7,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8788/226966/bhx/dua-hau-khong-hat-202312270957362195.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 9,
+    "name": "Orange (1kg)",
+    "description": "Orange",
+    "price": 17000,
+
+    "brandId":1,
+    "categoryId":2,
+    "importPrice":7000,
+    "inventory": 50,
+    
+    "sold": 18,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8788/321604/bhx/cam-sanh-202401201943148305.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 10,
+    "name": "Bonk Choy (500g)",
+    "description": "1 bag of 500g",
+    "price": 8000,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":2000,
+    "inventory": 30,
+    
+    "sold": 4,
+    "images": ["https://img.tgdd.vn/imgt/f_webp,fit_outside,quality_85,s_1152x670/https://cdn.tgdd.vn/Products/Images/8820/230443/bhx/cai-thia-202312271059011562.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 11,
+    "name": "Dried Shiitake Mushroom",
+    "description": "50g Bag",
+    "price": 30500,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":20000,
+    "inventory": 48,
+    
+    "sold": 7,
+    "images": ["https://cdn.tgdd.vn/Products/Images/3235/233827/bhx/nam-dong-co-kho-bach-hoa-xanh-goi-50g-202101260006023251.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 12,
+    "name": "Coca Cola Zero Coke",
+    "description": "390ml Bottle",
+    "price": 8200,
+
+    "brandId":2,
+    "categoryId":5,
+    "importPrice":5000,
+    "inventory": 60,
+    
+    "sold": 18,
+    "images": ["https://cdn.tgdd.vn/Products/Images/2443/230716/bhx/nuoc-ngot-co-ga-coca-cola-zero-chai-390ml-202110281746112376.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 13,
+    "name": "Miranda Orange Coke",
+    "description": "390ml Bottle",
+    "price": 8200,
+
+    "brandId":2,
+    "categoryId":5,
+    "importPrice":5000,
+    "inventory": 60,
+    
+    "sold": 12,
+    "images": ["https://cdn.tgdd.vn/Products/Images/2443/79138/bhx/nuoc-ngot-mirinda-huong-cam-chai-390ml-202310311346499855.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 14,
+    "name": "Redbull Energy Water",
+    "description": "250ml Can",
+    "price": 11400,
+
+    "brandId":2,
+    "categoryId":5,
+    "importPrice":6000,
+    "inventory": 60,
+    
+    "sold": 27,
+    "images": ["https://cdn.tgdd.vn/Products/Images/3226/76513/bhx/nuoc-tang-luc-redbull-lon-250ml-15112018162747.JPG"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 15,
+    "name": "SUNLIGHT Dishwashing Liquid",
+    "description": "2l Bag",
+    "price": 75000,
+
+    "brandId":3,
+    "categoryId":6,
+    "importPrice":40000,
+    "inventory": 52,
+    
+    "sold": 19,
+    "images": ["https://cdn.tgdd.vn/Products/Images/2387/222099/bhx/nuoc-rua-chen-sunlight-extra-tra-xanh-khu-5-mui-tanh-tui-2-lit-202306191445286523.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 16,
+    "name": "COMFORT Liquid Laundry Detergent",
+    "description": "3.6kg Bag",
+    "price": 184000,
+
+    "brandId":5,
+    "categoryId":6,
+    "importPrice":150000,
+    "inventory": 50,
+    
+    "sold": 12,
+    "images": ["https://cdn.tgdd.vn/Products/Images/2464/234943/bhx/nuoc-giat-comfort-duong-vai-huong-thoi-thuong-giup-quan-ao-sach-thom-tuoi-mau-tui-34-lit-202306151116089200.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 17,
+    "name": "Kimchi Banchambuba",
+    "description": "100g Bag",
+    "price": 14500,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":9000,
+    "inventory": 30,
+    
+    "sold": 21,
+    "images": ["https://cdn.tgdd.vn/Products/Images/7459/204347/bhx/kim-chi-cai-thao-cat-lat-bibigo-ong-kims-goi-100g-202002031131554036.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 18,
+    "name": "Coconut Milk",
+    "description": "400ml Can",
+    "price": 29500,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":20000,
+    "inventory": 40,
+    
+    "sold": 21,
+    "images": ["https://cdn.tgdd.vn/Products/Images/7086/211279/bhx/nuoc-cot-dua-vietcoco-lon-400ml-202303290833508429.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 19,
+    "name": "Vegan Broth Mix (Mushroom Flavor)",
+    "description": "450g Bag",
+    "price": 56500,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":45000,
+    "inventory": 52,
+    
+    "sold": 22,
+    "images": ["https://cdn.tgdd.vn/Products/Images/8645/198877/bhx/hat-nem-cao-cap-vi-nam-huong-maggi-goi-450g-202207291105505226.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  },
+  {
+    "id": 20,
+    "name": "SUNSILK Shampoo",
+    "description": "874ml Bottle",
+    "price": 180000,
+
+    "brandId":1,
+    "categoryId":3,
+    "importPrice":150000,
+    "inventory": 100,
+    
+    "sold": 45,
+    "images": ["https://cdn.tgdd.vn/Products/Images/2483/81008/bhx/dau-goi-sunsilk-ong-muot-rang-ngoi-874ml-202404190901052680.jpg"],
+    "createdAt": "10/1/2024",
+    "updatedAt": "21/2/2024",
+    "deletedAt": ""
+  }
+]
