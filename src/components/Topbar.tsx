@@ -126,14 +126,14 @@ const Topbar: React.FunctionComponent = () => {
                 <Button
                     type="primary"
                     className="shadow-none text-base bg-neutral-200 hover:bg-secondary_blue text-neutral-700"
-                    onClick={() => navigate.push("/sign-up")}
+                    onClick={() => navigate.push("/auth/sign-up")}
                 >
                    {/* <a href="/api/auth/signup">Sign up</a> */}Sign-up
                 </Button>
                 <Button
                     type="primary"
                     className=" shadow-none text-base "
-                    onClick={() => navigate.push("/sign-in")}
+                    onClick={() => navigate.push("/auth/login")}
                 >
                     {/* <a href="/api/auth/login">Login</a> */}Login
                 </Button>
