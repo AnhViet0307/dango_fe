@@ -61,9 +61,9 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
               style: "currency",
               currency: "VND",
             }).format(JSON.parse(data.price as unknown as string))}`}
-            <span className="text-base font-normal text-neutral-700">{` (${data.inventory})`}</span>
+            <span className="text-base font-normal text-neutral-700">{` (${data.stock})`}</span>
           </Typography.Title>
-          {data.inventory > 0 ? (
+          {data.stock > 0 ? (
             <Button
               ref={buttonRef}
               type="primary"

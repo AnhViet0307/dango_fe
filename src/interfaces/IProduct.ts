@@ -8,7 +8,7 @@ export interface IProduct {
     brandId: string | number;
     categoryId: number | string;
     importPrice: number | string;
-    inventory: number;
+    stock: number;
     //avgRating: number;
     sold: number;
     images: string[];

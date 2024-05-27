@@ -23,7 +23,7 @@ import { useCartStore } from "@/stores/useCartStore";
 import SearchBar from "./SearchBar"
 import React, {useState} from "react";
 import { useRouter } from "next/navigation";
-
+import { logOut } from "@/utils/auth";
 
 
 import Image from "next/image";
@@ -39,32 +39,32 @@ const Topbar: React.FunctionComponent = () => {
     const cart = useCartStore((state) => state.cart);
     const loggedIn = useAuthStore((state) => state.loggedIn);
 
-    // const items: MenuProps["items"] = [
-    //     {
-    //       key: "/settings",
-    //       icon: <SettingOutlined />,
-    //       onClick: () => {
-    //         if (profile?.role === Role.ADMIN) {
-    //             navigate("/admin/settings");
-    //         } else if (profile?.role === Role.DELIVERER) {
-    //             navigate("/delivery/settings");
-    //         } else {
-    //             navigate("/settings");
-    //         }
-    //         setOpen(!open);
-    //     },
-    //     label: "Settings",
-    //     },
-    //     {
-    //         key: "logout",
-    //         icon: <LogoutOutlined />,
-    //         onClick: () => {
-    //             setOpen(!open);
-    //             logOut();
-    //       },
-    //       label: "Logout",
-    //     },
-    //   ];
+    const items: MenuProps["items"] = [
+        {
+          key: "/settings",
+          icon: <SettingOutlined />,
+          onClick: () => {
+            if (profile?.role === Role.ADMIN) {
+                navigate.push("/admin/settings");
+            } else if (profile?.role === Role.STAFF) {
+                navigate.push("/delivery/settings");
+            } else {
+                navigate.push("/settings");
+            }
+            setOpen(!open);
+        },
+        label: "Settings",
+        },
+        {
+            key: "logout",
+            icon: <LogoutOutlined />,
+            onClick: () => {
+                setOpen(!open);
+                logOut();
+          },
+          label: "Logout",
+        },
+      ];
 
     return (
         <div className="flex justify-between w-full bg-primary_blue px-10 py-2" >
@@ -98,29 +98,29 @@ const Topbar: React.FunctionComponent = () => {
                 
                 {loggedIn ?
                     (
-                    <div/>
-                    // <div>
-                    //     <Popover
-                    //     content={
-                    //         <Menu
-                    //         mode="vertical"
-                    //         items={items}
-                    //         className="!border-none"
-                    //         selectedKeys={[""]}
-                    //         />
-                    //     }
-                    //     trigger="click"
-                    //     placement="bottomLeft"
-                    //     open={open}
-                    //     onOpenChange={() => setOpen(!open)}
-                    //     >
-                    //     <Avatar
-                    //         src={profile?.avatar ? profile.avatar : "/assets/avatar.png"}
-                    //         size={36}
-                    //         className="cursor-pointer"
-                    //     />
-                    //     </Popover>
-                    // </div>
+                    
+                    <div>
+                        <Popover
+                        content={
+                            <Menu
+                            mode="vertical"
+                            items={items}
+                            className="!border-none"
+                            selectedKeys={[""]}
+                            />
+                        }
+                        trigger="click"
+                        placement="bottomLeft"
+                        open={open}
+                        onOpenChange={() => setOpen(!open)}
+                        >
+                        <Avatar
+                            src={profile?.avatar ? profile.avatar : "/assets/avatar.png"}
+                            size={36}
+                            className="cursor-pointer"
+                        />
+                        </Popover>
+                    </div>
             ) : (
                 <>
                 <Button

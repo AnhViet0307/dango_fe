@@ -7,6 +7,7 @@ export interface IUser {
     totalPayment?: number | string;
     dob?: string | Date;
     role: string;
+    address: string;
     createdAt: string | Date;
     updatedAt: string | Date;
     deletedAt?: any | Date;

@@ -6,7 +6,7 @@ import { Checkbox, Col, Collapse, InputNumber, Rate, Row, Slider } from "antd";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import React, { useEffect, useState } from "react";
 const { Panel } = Collapse;
-import Records from "@p/data/product.json"
+
 // interface IFilterBarProps {}
 
 const FilterBar: React.FunctionComponent = () => {
@@ -19,19 +19,17 @@ const FilterBar: React.FunctionComponent = () => {
   const sortBy = useProductStore((state) => state.sortBy);
 
   // Price range
-  // const maxPrice = Math.max(
-  //   ...products.map((item) => JSON.parse(item.price as unknown as string))
-  // );
-  const maxPrice = 10000000;
-
+  const maxPrice = Math.max(
+    ...products.map((item) => JSON.parse(item.price as string))
+  );
   const [range, setRange] = useState<[number, number]>([0, 100]);
   const onChange = (value: [number, number]) => {
     setRange(value);
   };
   const onAfterChange = () => {
     setLimit([
-       Math.round(range[0] * (maxPrice / 100)),
-       Math.round(range[1] * (maxPrice / 100)),
+      Math.round(range[0] * (maxPrice / 100)),
+      Math.round(range[1] * (maxPrice / 100)),
     ]);
   };
 
@@ -82,10 +80,10 @@ const FilterBar: React.FunctionComponent = () => {
   ]);
 
   useEffect(() => {
-    // let changedProducts: IProduct[] = [...products];
-    let changedProducts: IProduct[] = Records;
+    let changedProducts: IProduct[] = [...products];
+
     changedProducts = changedProducts.filter((item) => {
-      const itemPrice = JSON.parse(item.price as unknown as string);
+      const itemPrice = JSON.parse(item.price as string);
       return limit && itemPrice >= limit[0] && itemPrice <= limit[1];
     });
 
@@ -98,30 +96,30 @@ const FilterBar: React.FunctionComponent = () => {
       return brandValue?.includes(item.brandId);
     });
 
-    changedProducts = changedProducts.filter((item) => {
-      if (ratingValue.length === ratingOptions.length) return true;
-      for (let index = 0; index < ratingValue.length; index++) {
-        if (
-          item.avgRating <= (ratingValue[index] as number) &&
-          item.avgRating > (ratingValue[index] as number) - 1
-        ) {
-          return true;
-        }
-      }
-      return false;
-    });
+    // changedProducts = changedProducts.filter((item) => {
+    //   if (ratingValue.length === ratingOptions.length) return true;
+    //   for (let index = 0; index < ratingValue.length; index++) {
+    //     if (
+    //       item.avgRating <= (ratingValue[index] as number) &&
+    //       item.avgRating > (ratingValue[index] as number) - 1
+    //     ) {
+    //       return true;
+    //     }
+    //   }
+    //   return false;
+    // });
 
     switch (sortBy) {
       case "low":
         changedProducts = changedProducts.sort(
           (a, b) =>
-            JSON.parse(a.price as unknown as string) - JSON.parse(b.price as unknown as string)
+            JSON.parse(a.price as string) - JSON.parse(b.price as string)
         );
         break;
       case "high":
         changedProducts = changedProducts.sort(
           (a, b) =>
-            JSON.parse(b.price as unknown as string) - JSON.parse(a.price as unknown as string)
+            JSON.parse(b.price as string) - JSON.parse(a.price as string)
         );
         break;
 
@@ -146,9 +144,8 @@ const FilterBar: React.FunctionComponent = () => {
     }
 
     setFilteredProducts(changedProducts);
-  }, [products, brands, categoryValue, ratingValue,brandValue,  limit, sortBy]);
-  
-  
+  }, [products, brands, categoryValue, brandValue, limit, sortBy]);
+
   return (
     <div className="w-full p-4 rounded-md shadow-md">
       {/* TITLE */}
@@ -161,7 +158,7 @@ const FilterBar: React.FunctionComponent = () => {
           <span className="text-base">Filters</span>
         </Col>
         <Col>
-          <span className="cursor-pointer text-primary-500">Clear all</span>
+          <span className="cursor-pointer text-primary-500" >Clear all</span>
         </Col>
       </Row>
 
@@ -244,7 +241,7 @@ const FilterBar: React.FunctionComponent = () => {
       </Row>
 
       {/* RATING */}
-      <Row className="py-7">
+      {/* <Row className="py-7">
         <Collapse
           defaultActiveKey={["1"]}
           ghost
@@ -278,9 +275,9 @@ const FilterBar: React.FunctionComponent = () => {
             </Checkbox.Group>
           </Panel>
         </Collapse>
-      </Row>
+      </Row> */}
     </div>
-  );
+  );;
 };
 
 export default FilterBar;

@@ -10,7 +10,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { useCartStore } from "@/stores/useCartStore";
 import { useProductStore } from "@/stores/useProductStore";
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter,usePathname } from "next/navigation";
+import { useRouter,usePathname, useParams } from "next/navigation";
 import { IProduct } from "@/interfaces/IProduct";
 
 
@@ -35,21 +35,10 @@ import {
 
 
 
-export default function ProductDetails({
-  params,
-}: {
-  params: { productId: string };
-}) {
-  // const [product, setProduct] = useState<IProduct>({
-  //   id: 0,
-  //   name: "",
-  //   price: 0,
-  //   description: "",
-  // });
-
-const pathname = usePathname();
-  const navigate = useRouter();
-  //const params: any = useParams();
+const ProductDetail: React.FC = () => {
+  const router = useRouter();
+  const pathname = usePathname();
+const params: any = useParams();
   const productId: string | number = JSON.parse(params.productId);
 
   const isLoading = useAppStore((state) => state.isLoading);
@@ -61,36 +50,19 @@ const pathname = usePathname();
   const [previewImage, setPreviewImage] = useState<string>();
 
   const fetchProductData = useRef<any>();
-  const handleCheckout = () => {
+const handleCheckout = () => {
     const selectedOrders = { orders: [{ ...product, quantity }] };
     history.pushState({ orders: JSON.stringify(selectedOrders) }, "", pathname + "/checkout");
-        navigate.push("checkout");
+        router.push("checkout");
   }
-
-  
-
   useEffect(() => {
-    const productIdNumber = parseInt(params.productId, 10);
-    
-    const foundProduct = Records.find(
-      (product) => product.id === productIdNumber
-    );
-
-    if (foundProduct) {
-      setProduct(foundProduct);
-      
-    }
-    
     fetchProductData.current = async () => {
       setIsLoading(true);
       try {
-        //const { data: productData } = await getProductById(productId);
-        //setProduct(productData);
-
-        //change back when BE is ready
-        setPreviewImage(foundProduct?.images[0]);
-        
-        if (foundProduct?.inventory === 0) setQuantity(0);
+        const { data: productData } = await getProductById(productId);
+        setProduct(productData);
+        setPreviewImage(productData.images[0]);
+        if (productData.inventory === 0) setQuantity(0);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -99,8 +71,10 @@ const pathname = usePathname();
     };
     fetchProductData.current();
   }, []);
-//params.productId
 
+  // colors
+  const colors = ["#FDE5FFFF", "#1599ae"];
+  const [color, setColor] = useState<string>();
 
   // type
   const [type, setType] = useState<string>();
@@ -123,7 +97,7 @@ const pathname = usePathname();
     }
   };
   const increase = () => {
-    if (quantity < (product?.inventory as number)) {
+    if (quantity < (product?.stock as number)) {
       setQuantity((prev) => prev + 1);
     } else {
       message.error("The requested quantity is not available");
@@ -132,7 +106,6 @@ const pathname = usePathname();
 
   // features
   const addToCart = useCartStore((state) => state.addToCart);
-
 
 
   return (
@@ -211,7 +184,7 @@ const pathname = usePathname();
                     <PlusOutlined />
                   </Button>
                 </Button.Group>
-                <span className="text-base text-neutral-700">{`${product?.inventory} pieces available`}</span>
+                <span className="text-base text-neutral-700">{`${product?.stock} pieces available`}</span>
               </div>
             </Col>
           </Row>
@@ -224,12 +197,12 @@ const pathname = usePathname();
                 style: "currency",
                 currency: "VND",
               }
-            ).format(JSON.parse((product?.price as string) || "0"))}`}</span>
+            ).format(JSON.parse((product?.price as unknown as string) || "0"))}`}</span>
           </Row>
 
           {/* PAYMENT BUTTON GROUP */}
           <Row gutter={16}>
-            {product && product?.inventory > 0 ? (
+            {product && product?.stock > 0 ? (
               <>
                 <Col>
                   <Button
@@ -281,3 +254,4 @@ const pathname = usePathname();
     
   );
 }
+export default ProductDetail;

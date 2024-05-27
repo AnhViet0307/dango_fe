@@ -1,6 +1,6 @@
 "use client";
-//import { getAllBrands } from "@/apis/brand.api";
-//import { getAllCategories } from "@/apis/category.api";
+import { getAllBrands } from "@/apis/brand.api";
+import { getAllCategories } from "@/apis/category.api";
 import { getAllProducts, searchProductsByName } from "@/apis/product.api";
 import { useAppStore } from "@/stores/useAppStore";
 import { useBrandStore } from "@/stores/useBrandStore";
@@ -17,32 +17,32 @@ import Records from "@p/data/product.json";
 import { IProduct } from "@/interfaces/IProduct";
 
 
-export function searchProductsByNameJSON(searchValue: string): Promise<IProduct[]> {
-  return new Promise((resolve, reject) => {
-    try {
-      // Filter products based on the searchValue (case-insensitive)
-      const filteredProducts = Records.filter((product) =>
-        product.name.toLowerCase().includes(searchValue.toLowerCase())
-      );
+// export function searchProductsByNameJSON(searchValue: string): Promise<IProduct[]> {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       // Filter products based on the searchValue (case-insensitive)
+//       const filteredProducts = Records.filter((product) =>
+//         product.name.toLowerCase().includes(searchValue.toLowerCase())
+//       );
 
-      resolve(filteredProducts);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
+//       resolve(filteredProducts);
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// }
 
 
 const ProductsPage: React.FC = () => {
   const isLoading = useAppStore((state) => state.isLoading);
   const setIsLoading = useAppStore((state) => state.setIsLoading);
-  //const products = useProductStore((state) => state.products);
-   const [products, setProducts] = useState<IProduct[]>([]);
+  const products = useProductStore((state) => state.products);
+   //const [products, setProducts] = useState<IProduct[]>([]);
   const filteredProducts = useProductStore((state) => state.filteredProducts);
   const setFilteredProducts = useProductStore(
     (state) => state.setFilteredProducts
   );
-  //const setProducts = useProductStore((state) => state.setProducts);
+  const setProducts = useProductStore((state) => state.setProducts);
   const setSortBy = useProductStore((state) => state.setSortBy);
   const setCategories = useCategoriesStore((state) => state.setCategories);
   const setBrands = useBrandStore((state) => state.setBrands);
@@ -59,17 +59,13 @@ const ProductsPage: React.FC = () => {
     fetchProductData.current = async () => {
       setIsLoading(true);
       try {
-        //const { data: productData } = await getAllProducts();
-        const foundProduct= Records as IProduct[]
-        const productData: IProduct[] = Records;
+        const { data: productData } = await getAllProducts();
+        const { data: categoryData } = await getAllCategories();
+        const { data: brandData } = await getAllBrands();
 
-        //const { data: categoryData } = await getAllCategories();
-        //const { data: brandData } = await getAllBrands();
-        
         setProducts(productData);
-        setFilteredProducts(productData);
-        //setCategories(categoryData);
-        //setBrands(brandData);
+        setCategories(categoryData);
+        setBrands(brandData);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -79,22 +75,19 @@ const ProductsPage: React.FC = () => {
     fetchProductData.current();
   }, []);
 
-  //api call
   const handleSearchProduct = async () => {
-    //setIsLoading(true);
+    setIsLoading(true);
     try {
-      if (searchValue.trim() !== "") {
-        //const { data } = await searchProductsByName(searchValue);
-        const filteredProducts = await searchProductsByNameJSON(searchValue);
-        setProducts(filteredProducts);
+      if (searchValue && searchValue !== "") {
+        const { data } = await searchProductsByName(searchValue);
+        setProducts(data);
       } else {
-        //const { data } = await getAllProducts();
-        
-        setProducts(Records);
+        const { data } = await getAllProducts();
+        setProducts(data);
       }
       setIsLoading(false);
     } catch (error) {
-      //setIsLoading(false);
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -159,7 +152,7 @@ const ProductsPage: React.FC = () => {
               pagination={{
                 position: "bottom",
                 align: "center",
-                defaultPageSize: 12,
+                defaultPageSize: 16,
               }}
               
               dataSource={ filteredProducts ||products}
