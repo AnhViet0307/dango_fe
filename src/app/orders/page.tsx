@@ -17,6 +17,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import ProductOrderItem from "./ProductOrderItem";
+import Topbar from "@/components/Topbar";
 
 const perPage = 4;
 
@@ -64,8 +65,11 @@ const OrderHistoryPage: React.FunctionComponent = () => {
     setCurrentPage(pageNumber);
   };
 
-  return (
-    <div className="py-12 px-80">
+    return (
+        <div>
+            <Topbar />
+      <div className="py-12 px-80">
+          
       <Typography.Title level={2} style={{ margin: 0 }}>
         Order history
       </Typography.Title>
@@ -137,7 +141,8 @@ const OrderHistoryPage: React.FunctionComponent = () => {
           onChange={onChangePage}
         />
       </div>
-    </div>
+            </div>
+            </div>
   );
 };
 

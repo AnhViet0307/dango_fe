@@ -8,6 +8,7 @@ export interface IUser {
     dob?: string | Date;
     role: string;
     address: string;
+    email: string;
     createdAt: string | Date;
     updatedAt: string | Date;
     deletedAt?: any | Date;
