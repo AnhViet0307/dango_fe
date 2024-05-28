@@ -21,8 +21,9 @@ const CartTable = () => {
     const handleCheckout = () => {
         const selectedOrders = cart.filter((item) => selectedRowKeys.includes(item.id));
         
-        history.pushState({ orders: JSON.stringify(selectedOrders) }, "", pathname + "/checkout");
-        navigate.push("checkout");
+        const serializedOrders = encodeURIComponent(JSON.stringify(selectedOrders));
+
+  navigate.push(`/checkout?orders=${serializedOrders}`);
   
 };
     

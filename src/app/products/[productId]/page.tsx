@@ -217,7 +217,7 @@ const handleCheckout = () => {
                     Add to cart
                   </Button>
                 </Col>
-                <Col>
+                {/* <Col>
                   <Button
                     type="primary"
                     className="w-48 bg-primary_blue"
@@ -226,7 +226,7 @@ const handleCheckout = () => {
                   >
                     Checkout
                   </Button>
-                </Col>
+                </Col> */}
               </>
             ) : (
               <span className="text-3xl text-red-400">Out of stock</span>
