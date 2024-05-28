@@ -65,7 +65,17 @@ const Topbar: React.FunctionComponent = () => {
           label: "Logout",
         },
       ];
-
+    if (profile?.role === Role.CUSTOMER) {
+        items.unshift({
+          key: "/orders",
+          icon: <BarsOutlined />,
+          onClick: () => {
+            navigate.push("/orders");
+            setOpen(!open);
+          },
+          label: "Orders",
+        });
+      }
     return (
         <div className="flex justify-between w-full bg-primary_blue px-10 py-2" >
             <div
