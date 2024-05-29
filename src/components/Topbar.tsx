@@ -80,7 +80,7 @@ const Topbar: React.FunctionComponent = () => {
           label: "Orders",
         });
   }
-  if (profile?.role === Role.STAFF) {
+  if (profile?.role === Role.STAFF || profile?.role ===Role.ADMIN) {
         items.unshift({
           key: "/process",
           icon: <BarsOutlined />,

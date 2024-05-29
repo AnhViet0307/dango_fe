@@ -6,6 +6,7 @@ import { Col, Row, Spin, Typography } from "antd";
 import React, { useEffect, useRef } from "react";
 import OrderTable from "./OrderTable";
 import StaffProtectedRoute from "@/components/StaffProtectedRoute"; 
+import Topbar from "@/components/Topbar";
 const OrderManagementPage: React.FunctionComponent = () => {
   const fetchProductData = useRef<any>(null);
 
@@ -31,24 +32,27 @@ const OrderManagementPage: React.FunctionComponent = () => {
 
   return (
     <StaffProtectedRoute>
-    <div className="my-10 px-28">
-      {/* TITlE */}
-      <Row justify={"space-between"} align={"middle"} className="mb-6">
-        <Col>
-          <Typography.Title level={2} style={{ margin: 0 }}>
-            Order management
-          </Typography.Title>
-        </Col>
-      </Row>
+      <div>
+        <Topbar/>
+        <div className="my-10 px-28">
+          {/* TITlE */}
+          <Row justify={"space-between"} align={"middle"} className="mb-6">
+            <Col>
+              <Typography.Title level={2} style={{ margin: 0 }}>
+                Order management
+              </Typography.Title>
+            </Col>
+          </Row>
 
-      {/* TABLE */}
-      {!isLoading ? (
-        <OrderTable />
-      ) : (
-        <div className="flex justify-center w-full">
-          <Spin spinning={isLoading} size="large" />
-        </div>
-      )}
+          {/* TABLE */}
+          {!isLoading ? (
+            <OrderTable />
+          ) : (
+            <div className="flex justify-center w-full">
+              <Spin spinning={isLoading} size="large" />
+            </div>
+          )}
+            </div>
       </div>
       </StaffProtectedRoute>
   );
