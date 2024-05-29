@@ -3,7 +3,9 @@ import httpRequest from "@/services/httpRequest";
 export const getAllUsers = () => {
   return httpRequest.get("/users");
 };
-
+export const getAllStaff = () => {
+  return httpRequest.get("/users/s");
+};
 export const createNewUser = (data: any) => {
   return httpRequest.post("/users", data);
 };

@@ -40,7 +40,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             : profile.role === Role.ADMIN
             ? navigate.push("/")
             : profile.role === Role.STAFF
-            ? navigate.push("/delivery/order-management")
+            ? navigate.push("/")
             : null,
       });
     } catch (error: any) {

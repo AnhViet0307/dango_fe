@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { Button, Typography } from 'antd';
 import OrderInformation from './components/OrderInformation'; 
-
+import AuthProtectedRoute from "@/components/AuthProtectedRoute";
 const CheckoutConfirmationPage: React.FunctionComponent = () => {
   const router = useRouter();
   const [confirmationData, setConfirmationData] = useState<any>(null);
@@ -21,6 +21,7 @@ const CheckoutConfirmationPage: React.FunctionComponent = () => {
   const status =  "success";
 //confirmationData ? confirmationData.status :
   return (
+   <AuthProtectedRoute>
     <div className="px-[450px] py-12 flex flex-col items-center">
       <div>
         <img
@@ -57,7 +58,8 @@ const CheckoutConfirmationPage: React.FunctionComponent = () => {
           </Button>
         
       </div>
-    </div>
+      </div>
+      </AuthProtectedRoute>
   );
 };
 

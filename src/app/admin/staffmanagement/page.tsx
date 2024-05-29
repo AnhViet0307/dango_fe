@@ -1,36 +1,36 @@
 'use client'
 import React, { useEffect, useRef, useState } from "react";
 import { Col, Row, Spin, Typography } from "antd";
-import ClientTable from "./ClientTable";
-import FilterMenu from "./FilterMenu";
+
 import { useAppStore } from "@/stores/useAppStore";
-import { useClientStore } from "@/stores/useClientStore";
-import { getAllUsers } from "@/apis/user.api";
+import { useStaffStore } from "@/stores/useStaffStore";
+import { getAllStaff } from "@/apis/user.api";
 import AdminHeader from "../AdminHeader";
 import Sidebar from "../AdminSidebar";
+import StaffTable from "./StaffTable";
 import AdminProtectedRoute from "@/components/AdminProtectedRoute";
 const items = [
   { value: "all", title: "All clients" },
 ];
 
-const ClientManagementPage: React.FunctionComponent = () => {
+const StaffManagementPage: React.FunctionComponent = () => {
   const [selectedFilter, setSelectedFilter] = useState<any>(items[0]);
 
   const fetchProductData = useRef<any>(null);
 
   const isLoading = useAppStore((state) => state.isLoading);
   const setIsLoading = useAppStore((state) => state.setIsLoading);
-  const clients = useClientStore((state) => state.clients);
-  const setClients = useClientStore((state) => state.setClients);
-  const setFilteredClients = useClientStore(
-    (state) => state.setFilteredClients
+  const clients = useStaffStore((state) => state.staff);
+  const setClients = useStaffStore((state) => state.setStaff);
+  const setFilteredClients = useStaffStore(
+    (state) => state.setFilteredStaff
   );
 
   useEffect(() => {
     fetchProductData.current = async () => {
       setIsLoading(true);
       try {
-        const { data } = await getAllUsers();
+        const { data } = await getAllStaff();
         console.log(data);
         setClients(data);
         setIsLoading(false);
@@ -69,7 +69,7 @@ const ClientManagementPage: React.FunctionComponent = () => {
 
       {/* TABLE */}
       {!isLoading ? (
-        <ClientTable />
+        <StaffTable />
       ) : (
         <Spin spinning={isLoading} size="large" />
       )}
@@ -82,4 +82,4 @@ const ClientManagementPage: React.FunctionComponent = () => {
   );
 };
 
-export default ClientManagementPage;
+export default StaffManagementPage;

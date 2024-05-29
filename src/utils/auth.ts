@@ -15,6 +15,7 @@ export const logOut = () => {
   setIsLoading(false);
 };
 
+
 export const getAccessToken = () => {
   const token = useAuthStore.getState().token.accessToken;
   return token;

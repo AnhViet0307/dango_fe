@@ -6,11 +6,12 @@ import React from "react";
 import ChangePassword from "./ChangePassword";
 import ProfileEdit from "./ProfileEdit";
 import Topbar from "@/components/Topbar";
-
+import AuthProtectedRoute from "@/components/AuthProtectedRoute";
 
 const ProfilePage: React.FunctionComponent = (props) => {
     const profile = useAuthStore((state) => state.profile);
     return (
+        <AuthProtectedRoute>
         <div>
             <Topbar />
             <div className="px-80  mt-4">
@@ -30,6 +31,8 @@ const ProfilePage: React.FunctionComponent = (props) => {
                 </Row>
                 <Row className="mb-4  "><Col span={24}><ChangePassword/></Col></Row>
             </div>
-        </div>);
+        </div>
+    </AuthProtectedRoute>
+    );
 };
 export default ProfilePage;

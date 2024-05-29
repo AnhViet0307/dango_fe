@@ -40,7 +40,7 @@ const AdminHeader: React.FunctionComponent = () => {
   ];
 
   return (
-    <div className="bg-primary_blue w-full items-end text-right px-16 ">
+    <div className="bg-primary_blue w-full items-end text-right px-16 py-2 ">
       <Popover
         content={
           <Menu

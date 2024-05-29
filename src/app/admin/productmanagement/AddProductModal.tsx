@@ -82,22 +82,17 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
   };
 
   const handleAddNewProduct = async (values: any) => {
-    const { images, categoryId, ...rest } = values;
+    const { images, categoryId,name,brandName, ...rest } = values;
     const storage = getStorage(app);
     const user = auth.currentUser;  //get current auth user
 
-    if (!user) {
-          notification.error({
-            message: "User not authenticated",
-          });
-          return;
-        }
+    
 
     const imageURLs = await Promise.all(
       images.fileList.map(async (image: any) => {
         const storageRef = ref(
           storage,
-          `${categoryId}/${image.name}`
+          `${categoryId}/${brandName}/${name}/${image.name}`
         );
         await uploadBytes(storageRef, image.originFileObj);
         const imageURL = await getDownloadURL(storageRef);
@@ -107,6 +102,8 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
 
     const payload = {
       ...rest,
+      name: name,
+      brandName:brandName,
       categoryId: categoryId,
       images: [...imageURLs],
       sold: 0,
@@ -166,7 +163,7 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
         </Form.Item>
         <Row>
           <Col span={24}>
-            <Form.Item name="desc" label="Description">
+            <Form.Item name="description" label="Description">
               <Input.TextArea
                 rows={3}
                 autoSize={false}
@@ -191,8 +188,8 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
             </Form.Item>
           </Col>
           <Col span={8}>
-            <Form.Item name="inventory" label="Inventory">
-              <InputNumber min={0} placeholder="Inventory" className="w-full" />
+            <Form.Item name="stock" label="Stock">
+              <InputNumber min={0} placeholder="Stock" className="w-full" />
             </Form.Item>
           </Col>
         </Row>

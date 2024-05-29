@@ -15,6 +15,8 @@ import { addOrder } from "@/apis/order.api";
 import { useAppStore } from "@/stores/useAppStore";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from 'react-router-dom';
+import AuthProtectedRoute from '@/components/AuthProtectedRoute';
+
 
 export default function Page() {
 
@@ -84,6 +86,7 @@ const navigate = useRouter();
 
 
   return (
+    <AuthProtectedRoute>
     <div >
       <Topbar />
       <div className='px-64 mt-16 align-auto'>
@@ -96,7 +99,8 @@ const navigate = useRouter();
         <OrderSum orders={data} onPay={handlePay} />
         {/* <OrderForm /> */}
       </div>
-    </div>
+      </div>
+      </AuthProtectedRoute>
   )
   
 }

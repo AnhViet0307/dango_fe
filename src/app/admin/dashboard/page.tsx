@@ -22,6 +22,7 @@ import TimelineItem from "./TimelineItem";
 import { useRouter } from "next/navigation";
 import Sidebar from "../AdminSidebar";
 import AdminHeader from "../AdminHeader";
+import AdminProtectedRoute from "@/components/AdminProtectedRoute";
 
 const DashboardPage: React.FunctionComponent = () => {
   const isLoading = useAppStore((state) => state.isLoading);
@@ -63,6 +64,7 @@ const DashboardPage: React.FunctionComponent = () => {
   }, []);
 
     return (
+      <AdminProtectedRoute>
       <div>
         <Row className="mb-4">
           <AdminHeader/>
@@ -223,7 +225,8 @@ const DashboardPage: React.FunctionComponent = () => {
                 </Col>
         </Row>
             
-</div>
+        </div>
+        </AdminProtectedRoute>
   );
 };
 

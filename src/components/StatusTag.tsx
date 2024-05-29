@@ -23,11 +23,16 @@ const StatusTag: React.FunctionComponent<IStatusTagProps> = ({ value }) => {
 
     case Status.DELIVERED:
       return (
+        <div className="inline-block px-3 py-1 text-green-500 bg-blue-100 rounded-full">
+          {value}
+        </div>
+      );
+case Status.PROCESSING:
+      return (
         <div className="inline-block px-3 py-1 text-blue-500 bg-blue-100 rounded-full">
           {value}
         </div>
       );
-
     default:
       break;
   }

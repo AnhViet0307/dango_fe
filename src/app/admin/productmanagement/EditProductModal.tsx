@@ -1,3 +1,4 @@
+'use client'
 import {
   deleteProductById,
   getProductById,
@@ -51,6 +52,7 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
   data,
 }) => {
   const storage = getStorage(app);
+  console.log(storage);
   const navigate = useRouter();
   const categories = useCategoriesStore((state) => state.categories);
   const brands = useBrandStore((state) => state.brands);

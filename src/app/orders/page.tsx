@@ -18,7 +18,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import ProductOrderItem from "./ProductOrderItem";
 import Topbar from "@/components/Topbar";
-
+import AuthProtectedRoute from "@/components/AuthProtectedRoute";
 const perPage = 4;
 
 const OrderHistoryPage: React.FunctionComponent = () => {
@@ -65,7 +65,8 @@ const OrderHistoryPage: React.FunctionComponent = () => {
     setCurrentPage(pageNumber);
   };
 
-    return (
+  return (
+      <AuthProtectedRoute>
         <div>
             <Topbar />
       <div className="py-12 px-80">
@@ -142,7 +143,8 @@ const OrderHistoryPage: React.FunctionComponent = () => {
         />
       </div>
             </div>
-            </div>
+      </div>
+      </AuthProtectedRoute>
   );
 };
 

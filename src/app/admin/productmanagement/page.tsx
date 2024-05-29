@@ -13,7 +13,7 @@ import ProductTable from "./ProductTable";
 import SummaryCard from "./SummaryCard";
 import Sidebar from "../AdminSidebar";
 import AdminHeader from "../AdminHeader";
-
+import AdminProtectedRoute from "@/components/AdminProtectedRoute";
 
 const ProductManagementPage: React.FunctionComponent = () => {
   const [show, setShow] = useState<boolean>(false);
@@ -48,6 +48,7 @@ const ProductManagementPage: React.FunctionComponent = () => {
   }, []);
 
     return (
+      <AdminProtectedRoute>
       <div>
         <Row className="mb-4">
           <AdminHeader/>
@@ -134,6 +135,7 @@ const ProductManagementPage: React.FunctionComponent = () => {
         </Row>
             
 </div>
+        </AdminProtectedRoute>
   );
 };
 

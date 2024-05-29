@@ -3,7 +3,9 @@ import httpRequest from "@/services/httpRequest";
 export const getAllProducts = () => {
   return httpRequest.get("/products");
 };
-
+export const getTenProducts = () => {
+  return httpRequest.get("/products/ten");
+};
 export const searchProductsByName = (value: string) => {
   return httpRequest.get("/products/search", {
     params: {

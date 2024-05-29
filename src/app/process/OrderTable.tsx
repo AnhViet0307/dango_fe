@@ -1,29 +1,28 @@
-import CategoryTag from "@/components/CategoryTag";
-import { IProduct } from "@/interfaces/IProduct";
-import { useBrandStore } from "@/stores/useBrandStore";
-import { useProductStore } from "@/stores/useProductStore";
+import StatusTag from "@/components/StatusTag";
+import { Status } from "@/constants/status";
+import { IOrder } from "@/interfaces/IOrder";
+import { useOrdersStore } from "@/stores/useOrderStore";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, InputRef, Rate, Space, Table } from "antd";
+import { Button, Input, InputRef, Space, Table } from "antd";
 import {
   ColumnType,
   ColumnsType,
   FilterConfirmProps,
 } from "antd/es/table/interface";
 import React, { useRef, useState } from "react";
-// import Highlighter from "react-highlight-words";
-import EditProductModal from "./EditProductModal";
+//import Highlighter from "react-highlight-words";
+import EditOrderModal from "./EditOrderModal";
 
-type DataIndex = keyof IProduct;
+type DataIndex = keyof IOrder;
 
-const ProductTable: React.FunctionComponent = () => {
+const OrderTable: React.FunctionComponent = () => {
   const [show, setShow] = useState<boolean>(false);
-  const [edittedProduct, setEdittedProduct] = useState<IProduct>();
+  const [edittedOrder, setEdittedOrder] = useState<IOrder>();
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef<InputRef>(null);
 
-  const products = useProductStore((state) => state.products);
-  const brands = useBrandStore((state) => state.brands);
+  const orders = useOrdersStore((state) => state.orders);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -40,9 +39,7 @@ const ProductTable: React.FunctionComponent = () => {
     setSearchText("");
   };
 
-  const getColumnSearchProps = (
-    dataIndex: DataIndex
-  ): ColumnType<IProduct> => ({
+  const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IOrder> => ({
     filterDropdown: ({
       setSelectedKeys,
       selectedKeys,
@@ -65,7 +62,6 @@ const ProductTable: React.FunctionComponent = () => {
         />
         <Space>
           <Button
-            
             type="primary"
             onClick={() =>
               handleSearch(selectedKeys as string[], confirm, dataIndex)
@@ -84,6 +80,7 @@ const ProductTable: React.FunctionComponent = () => {
             Reset
           </Button>
           <Button
+            className="bg-primary_blue"
             type="link"
             size="small"
             onClick={() => {
@@ -96,6 +93,7 @@ const ProductTable: React.FunctionComponent = () => {
           </Button>
           <Button
             type="link"
+            className="bg-primary_blue"
             size="small"
             onClick={() => {
               close();
@@ -109,7 +107,7 @@ const ProductTable: React.FunctionComponent = () => {
     filterIcon: (filtered: boolean) => (
       <SearchOutlined style={{ color: filtered ? "#1677ff" : undefined }} />
     ),
-    onFilter: (value, record) =>
+    onFilter: (value, record: any) =>
       record[dataIndex]
         .toString()
         .toLowerCase()
@@ -132,104 +130,111 @@ const ProductTable: React.FunctionComponent = () => {
     //   ),
   });
 
-  const columns: ColumnsType<IProduct> = [
+  const columns: ColumnsType<IOrder> = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      width: "15%",
-      ...getColumnSearchProps("name"),
+      title: "Order ID",
+      dataIndex: "id",
+      key: "id",
+      width: "10%",
       render: (value, record, index) => (
         <span className="font-medium">{value}</span>
       ),
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
+      title: "Recipient name",
+      dataIndex: "orderName",
+      key: "orderName",
       width: "20%",
+      ...getColumnSearchProps("orderName"),
     },
     {
-      title: "Brand",
-      dataIndex: "brandId",
-      key: "brandId",
-      width: "10%",
-      render: (value, record, index) => {
-        const brand = brands.find((item) => item.id === value);
-
-        return <span>{brand?.name}</span>;
-      },
+      title: "Phone",
+      dataIndex: "orderPhone",
+      key: "orderPhone",
+      width: "15%",
+      render: (value, record, index) => <span>{value}</span>,
     },
     {
-      title: "Category",
-      dataIndex: "category",
-      key: "category",
-      width: "10%",
-      render: (value, record, index) => (
-        <div>
-          <CategoryTag value={record.categoryId} />
-        </div>
-      ),
+      title: "Address",
+      dataIndex: "orderAddress",
+      key: "orderAddress",
+      width: "20%",
+      render: (value, record, index) => <span>{value}</span>,
+      ...getColumnSearchProps("orderAddress"),
     },
     {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      width: "10%",
-      sorter: (a: any, b: any) => a - b,
+      title: "Total price",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      width: "15%",
+      sorter: (a: IOrder, b: IOrder) =>
+        a.OrderItemModels.map((item) => JSON.parse(item.totalPrice)).reduce(
+          (prev, cur) => prev + cur,
+          0
+        ) -
+        b.OrderItemModels.map((item) => JSON.parse(item.totalPrice)).reduce(
+          (prev, cur) => prev + cur,
+          0
+        ),
       sortDirections: ["descend", "ascend"],
       render: (value, record, index) => (
         <span>{`${new Intl.NumberFormat("vi-VN", {
           style: "currency",
           currency: "VND",
-        }).format(value)}`}</span>
+        }).format(
+          record.OrderItemModels.map((item) =>
+            JSON.parse(item.totalPrice)
+          ).reduce((prev, cur) => prev + cur, 0)
+        )}`}</span>
       ),
     },
     {
-      title: "Sold",
-      dataIndex: "sold",
-      key: "sold",
-      width: "5%",
-      sorter: (a: any, b: any) => a - b,
-      sortDirections: ["descend", "ascend"],
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      width: "10%",
+      filters: [
+        {
+          text: Status.CANCELLED,
+          value: Status.CANCELLED,
+        },
+        {
+          text: Status.DELIVERED,
+          value: Status.DELIVERED,
+        },
+        {
+          text: Status.PENDING,
+          value: Status.PENDING,
+        },
+        {
+          text: Status.PROCESSING,
+          value: Status.PROCESSING,
+        },
+      ],
+      onFilter: (value: any, record: IOrder) => record.status === value,
+      render: (value, record, index) => (
+        <span>
+          <StatusTag value={value} />
+        </span>
+      ),
     },
-    {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-      width: "5%",
-      sorter: (a: any, b: any) => a - b,
-      sortDirections: ["descend", "ascend"],
-      render: (value, record, index) => record.stock,
-    },
-    // {
-    //   title: "Rating",
-    //   dataIndex: "avgRating",
-    //   key: "avgRating",
-    //   width: "15%",
-    //   sorter: (a: any, b: any) => a - b,
-    //   sortDirections: ["descend", "ascend"],
-    //   render: (value, record, index) => (
-    //     <Rate allowHalf disabled defaultValue={value} />
-    //   ),
-    // },
     {
       title: "",
       dataIndex: "edit",
       key: "edit",
-      width: "5%",
-      render: (value, record, index) => (
-        <span
-          className="cursor-pointer text-primary"
-          onClick={() => {
-            setEdittedProduct(record);
-            console.log(record);
-            setShow(true);
-          }}
-        >
-          Edit
-        </span>
-      ),
+      width: "10%",
+      render: (value, record, index) =>
+        record.status !== Status.CANCELLED && (
+          <span
+            className="cursor-pointer text-primary"
+            onClick={() => {
+              setEdittedOrder(record);
+              setShow(true);
+            }}
+          >
+            Edit
+          </span>
+        ),
     },
   ];
 
@@ -238,7 +243,7 @@ const ProductTable: React.FunctionComponent = () => {
       <Table
         rowKey={"id"}
         columns={columns}
-        dataSource={products}
+        dataSource={orders}
         pagination={{
           pageSize: 6,
           position: ["bottomCenter"],
@@ -246,11 +251,11 @@ const ProductTable: React.FunctionComponent = () => {
         scroll={{ x: true }}
         className="mb-10"
       />
-      {show && edittedProduct && (
-        <EditProductModal show={show} setShow={setShow} data={edittedProduct} />
+      {show && edittedOrder && (
+        <EditOrderModal show={show} setShow={setShow} data={edittedOrder} />
       )}
     </>
   );
 };
 
-export default ProductTable;
+export default OrderTable;

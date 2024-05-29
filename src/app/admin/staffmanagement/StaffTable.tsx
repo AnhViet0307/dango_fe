@@ -1,7 +1,7 @@
 import { changeUserStatus } from "@/apis/user.api";
 
 import { IUser } from "@/interfaces/IUser";
-import { useClientStore } from "@/stores/useClientStore";
+import { useStaffStore } from "@/stores/useStaffStore";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, InputRef, Space, Table, notification } from "antd";
 import {
@@ -23,8 +23,8 @@ const ClientTable: React.FunctionComponent = () => {
   const searchInput = useRef<InputRef>(null);
   const a = useRouter();
 
-  const clients = useClientStore((state) => state.clients);
-  const filteredClients = useClientStore((state) => state.filteredClients);
+  const staff = useStaffStore((state) => state.staff);
+  const filteredstaff = useStaffStore((state) => state.filteredStaff);
 
   const handleSearch = (
     selectedKeys: string[],
@@ -160,7 +160,7 @@ const ClientTable: React.FunctionComponent = () => {
       dataIndex: "phone",
       key: "phone",
       width: "15%",
-      ...getColumnSearchProps("email"),
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Email",
@@ -175,21 +175,7 @@ const ClientTable: React.FunctionComponent = () => {
       key: "role",
       width: "10%",
     },
-    {
-      title: "Total paid & orders",
-      dataIndex: "total_paid",
-      key: "total_paid",
-      width: "15%",
-      render: (value, record, index) => (
-        <div className="flex flex-col gap-[2px]">
-          <span className="text-sm">{`${new Intl.NumberFormat("vi-VN", {
-            style: "currency",
-            currency: "VND",
-          }).format(JSON.parse(record.totalPayment as string))}`}</span>
-          <span className="text-xs text-neutral-600">{record.orderCount}</span>
-        </div>
-      ),
-    },
+   
     
     
   ];
@@ -199,7 +185,7 @@ const ClientTable: React.FunctionComponent = () => {
       rowKey={"id"}
       columns={columns}
       //filteredClients ? filteredClients :
-      dataSource={ clients}
+      dataSource={ staff}
       pagination={{
         onChange: (page) => {
           console.log(page);
