@@ -2,10 +2,13 @@
 import "@/app/globals.css";
 
 import {
+  AppstoreOutlined,
     BarsOutlined,
     LogoutOutlined,
     SettingOutlined,
-    ShoppingCartOutlined,
+  ShoppingCartOutlined,
+    
+    UserOutlined,
 } from "@ant-design/icons";
 import {
     Avatar,
@@ -41,26 +44,27 @@ const Topbar: React.FunctionComponent = () => {
 
     const items: MenuProps["items"] = [
         {
-          key: "/settings",
-          icon: <SettingOutlined />,
+          key: "profile",
+          icon: <UserOutlined />,
           onClick: () => {
-            if (profile?.role === Role.ADMIN) {
-                navigate.push("/admin/settings");
-            } else if (profile?.role === Role.STAFF) {
-                navigate.push("/delivery/settings");
-            } else {
-                navigate.push("/settings");
-            }
+            // if (profile?.role === Role.ADMIN) {
+            //     navigate.push("/admin/settings");
+            // } else if (profile?.role === Role.STAFF) {
+            //     navigate.push("/delivery/settings");
+            // } else {
+                navigate.push("/profile");
+            // }
             setOpen(!open);
         },
-        label: "Settings",
+        label: "Profile",
         },
         {
             key: "logout",
             icon: <LogoutOutlined />,
             onClick: () => {
                 setOpen(!open);
-                logOut();
+              logOut();
+              navigate.push("/");
           },
           label: "Logout",
         },
@@ -74,6 +78,28 @@ const Topbar: React.FunctionComponent = () => {
             setOpen(!open);
           },
           label: "Orders",
+        });
+  }
+  if (profile?.role === Role.STAFF) {
+        items.unshift({
+          key: "/process",
+          icon: <BarsOutlined />,
+          onClick: () => {
+            navigate.push("/process");
+            setOpen(!open);
+          },
+          label: "Process orders",
+        });
+  }
+  if (profile?.role === Role.ADMIN) {
+        items.unshift({
+          key: "/dashboard",
+          icon: <AppstoreOutlined />,
+          onClick: () => {
+            navigate.push("/admin/dashboard");
+            setOpen(!open);
+          },
+          label: "Dashboard",
         });
       }
     return (
@@ -92,7 +118,7 @@ const Topbar: React.FunctionComponent = () => {
           {/* s<SearchBar/> */}
           <Button
                     type="text"
-                    className="shadow-none text-white mr-5 text-base align-middle font-bold text-center"
+                    className="shadow-none text-white mr-5 text-base align-middle font-bold text-center outline outline-primary_yellow"
                     onClick={() => navigate.push("/products")}
                 >
                     Products
@@ -102,7 +128,7 @@ const Topbar: React.FunctionComponent = () => {
                 className="text-xl cursor-pointer"
                 onClick={() => navigate.push("/cart")}
               >
-                <ShoppingCartOutlined />
+                <ShoppingCartOutlined className="text-white font-bold w-8 h-auto" />
               </div>
             </Badge>
                 
@@ -135,14 +161,14 @@ const Topbar: React.FunctionComponent = () => {
                 <>
                 <Button
                     type="primary"
-                    className="shadow-none text-base bg-neutral-200 hover:bg-secondary_blue text-neutral-700"
+                    className="shadow-none text-base bg-white hover:bg-secondary_blue text-neutral-700 font-medium"
                     onClick={() => navigate.push("/auth/sign-up")}
                 >
                    {/* <a href="/api/auth/signup">Sign up</a> */}Sign-up
                 </Button>
                 <Button
                     type="primary"
-                    className=" shadow-none text-base "
+                    className=" shadow-none text-base font-medium bg-secondary_blue"
                     onClick={() => navigate.push("/auth/login")}
                 >
                     {/* <a href="/api/auth/login">Login</a> */}Login
