@@ -39,7 +39,7 @@ const TimelineItem: React.FunctionComponent<ITimelineItemProps> = ({
             </Col>
             <Col span={4}>
               <span className="text-sm text-neutral-900">
-                {order.receiptName}
+                {order.orderName}
               </span>
             </Col>
             <Col span={2}>
@@ -47,7 +47,7 @@ const TimelineItem: React.FunctionComponent<ITimelineItemProps> = ({
             </Col>
             <Col span={6}>
               <span className="text-sm text-neutral-900">
-                {order.receiptAddress}
+                {order.orderAddress}
               </span>
             </Col>
           </Row>

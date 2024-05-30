@@ -60,7 +60,7 @@ const StaffManagementPage: React.FunctionComponent = () => {
       <Row justify={"space-between"} align={"middle"}>
         <Col>
           <Typography.Title level={2} style={{ margin: 0 }}>
-            Customer management
+            Staff management
           </Typography.Title>
         </Col>
       </Row>

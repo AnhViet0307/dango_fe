@@ -10,18 +10,21 @@ interface IOrdersTableProps {
 }
 
 const columns: ColumnsType<ICart> = [
-  {
+
+{
     title: "Name",
     render: (value, record, index) => {
+      console.log(record);
       return (
+        
         <Row gutter={20} align={"middle"}>
-          <Col>
+          {/* <Col>
             <img
               src={record.images[0]}
               alt="item image"
               className="w-24 h-16 rounded-md"
             />
-          </Col>
+          </Col> */}
           <Col className="flex flex-col justify-center flex-1">
             <span className="text-sm font-medium leading-6 text-neutral-900">
               {record.name}
@@ -53,7 +56,7 @@ const columns: ColumnsType<ICart> = [
         currency: "VND",
       }).format(record.quantity * JSON.parse(record.price as unknown as string))}`}</span>
     ),
-  },
+  }, 
 ];
 
 const OrdersTable: React.FunctionComponent = () => {

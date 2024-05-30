@@ -186,21 +186,21 @@ const DashboardPage: React.FunctionComponent = () => {
               itemLayout="vertical"
               loadMore={
                 timeline?.slice(0, loadSize).length < timeline?.length ? (
-                  <div className="flex justify-center">
+                  <div className="flex justify-center ">
                     <Button
                       onClick={() => setLoadSize((cur) => cur + 2)}
                       type="primary"
-                      className="text-sm text-center text-primary-500"
+                      className="text-sm bg-primary_blue text-center text-primary-500"
                     >
                       Loadmore <DownOutlined />
                     </Button>
                   </div>
                 ) : (
-                  <div className="flex justify-center">
+                  <div className="flex justify-center ">
                     <Button
                       onClick={() => setLoadSize(1)}
                       type="primary"
-                      className="text-sm text-center text-primary-500"
+                      className="bg-primary_blue text-sm text-center text-primary-500"
                     >
                       Show less <UpOutlined />
                     </Button>
