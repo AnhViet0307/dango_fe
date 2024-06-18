@@ -100,8 +100,10 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
             return RcFile;
           })
         );
+
         setProduct(productData);
         setFileList(files);
+        console.log(product);
         if (product) setIsLoading(false);
       } catch (error) {
         setTimeout(() => {
@@ -218,6 +220,7 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
           <div className="flex gap-2">
             <Button onClick={() => setShow(false)}>Cancel</Button>
             <Button
+              className="bg-primary_blue"
               type="primary"
               loading={isLoading}
               onClick={() => {
