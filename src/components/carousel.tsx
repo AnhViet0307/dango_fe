@@ -8,6 +8,7 @@ import { IProduct } from '@/interfaces/IProduct';
 import { useAppStore } from '@/stores/useAppStore';
 import { useTenProductStore } from '@/stores/useTenProductStore';
 import { getTenProducts, searchProductsByName } from "@/apis/product.api";
+
 const CustomCarousel = () => {
     const isLoading = useAppStore((state) => state.isLoading);
   const setIsLoading = useAppStore((state) => state.setIsLoading);

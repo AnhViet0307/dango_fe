@@ -3,7 +3,7 @@ import {
   SettingOutlined,
   ShoppingCartOutlined,
   TeamOutlined,
-  
+  LikeOutlined,
 } from "@ant-design/icons";
 import { Menu, MenuProps } from "antd";
 import React from "react";
@@ -23,7 +23,7 @@ const Sidebar: React.FunctionComponent = () => {
       key: "/admin/client-management",
       onClick: () => navigate.push("/admin/clientmanagement"),
       icon: <TeamOutlined />,
-      label: "Clients",
+      label: "Customers",
     },
     {
       key: "/admin/product-management",
@@ -31,12 +31,13 @@ const Sidebar: React.FunctionComponent = () => {
       icon: <ShoppingCartOutlined />,
       label: "Products",
     },
-    // {
-    //   key: "/admin/messaging",
-    //   onClick: () => navigate("/admin/messaging"),
-    //   icon: <BellOutlined />,
-    //   label: "Messages",
-    // },
+    {
+      key: "/admin/dish-management",
+      onClick: () => navigate.push("/admin/dishmanagement"),
+      icon: <LikeOutlined />,
+      label: "Dishes",
+    },
+    
     {
       key: "/admin/settings",
       onClick: () => navigate.push("/admin/staffmanagement"),

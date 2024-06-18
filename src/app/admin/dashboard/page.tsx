@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import Sidebar from "../AdminSidebar";
 import AdminHeader from "../AdminHeader";
 import AdminProtectedRoute from "@/components/AdminProtectedRoute";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 const DashboardPage: React.FunctionComponent = () => {
   const isLoading = useAppStore((state) => state.isLoading);
@@ -35,6 +36,8 @@ const DashboardPage: React.FunctionComponent = () => {
   const setStatistics = useGeneralStore((state) => state.setStatistics);
   const statistics = useGeneralStore((state) => state.statistics);
 
+  const loggedIn = useAuthStore((state) => state.loggedIn);
+  const rehydrated = useAuthStore((state) => state.rehydrated);
   const [loadSize, setLoadSize] = useState<number>(1);
 
   const fetchDashboardData = useRef<any>();
@@ -75,7 +78,7 @@ const DashboardPage: React.FunctionComponent = () => {
         </Col>
         <Col className="w-3/4">
     <div className="p-8">
-      {/* TITlE */}
+      {/* TITLE */}
       <Row justify={"space-between"} align={"middle"}>
         <Col>
           <Typography.Title level={2} style={{ margin: 0 }}>

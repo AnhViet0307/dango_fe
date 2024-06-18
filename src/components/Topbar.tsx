@@ -119,6 +119,13 @@ const Topbar: React.FunctionComponent = () => {
           <Button
                     type="text"
                     className="shadow-none text-white mr-5 text-base align-middle font-bold text-center outline outline-primary_yellow"
+                    onClick={() => navigate.push("/dishes")}
+                >
+                    Dishes
+                </Button>
+          <Button
+                    type="text"
+                    className="shadow-none text-white mr-5 text-base align-middle font-bold text-center outline outline-primary_yellow"
                     onClick={() => navigate.push("/products")}
                 >
                     Products

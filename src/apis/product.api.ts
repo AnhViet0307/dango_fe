@@ -21,6 +21,9 @@ export const createNewProduct = (data: any) => {
 export const getProductById = (productId: string | number) => {
   return httpRequest.get(`/products/${productId}`);
 };
+export const getProductsByIds = async (ids: number[]) => {
+  return httpRequest.post('/products/getByIds', { ids }); 
+};
 
 export const updateProductById = (productId: string | number, data: any) => {
   return httpRequest.put(`/products/${productId}`, data);

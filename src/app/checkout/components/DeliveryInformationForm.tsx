@@ -1,16 +1,28 @@
+'use client'
+import { IUser } from "@/interfaces/IUser";
 import { Col, Form, Input, Row, Typography } from "antd";
-import React from "react";
+import React,{useEffect} from "react";
 
 interface IRecipientInformationProps {
   form: any;
+  profile: IUser|null;
 }
 const DeliveryInformation:React.FunctionComponent<IRecipientInformationProps
-  > = ({ form }) => {
+  > = ({ form,profile}) => {
   
 
-
-
-
+    const isUserNameAvailable = (profile?.fullname==="" ?0:1);
+    const isUserPhoneAvailable = (profile?.phone === "" ?0:1);
+    const isUserAddressAvailable = (profile?.phone === "" ?0:1);
+    useEffect(() => {
+        if (profile) {
+          form.setFieldsValue({
+            orderName: isUserNameAvailable ? profile.fullname : '',
+            orderPhone: isUserPhoneAvailable ? profile.phone : '',
+            orderAddress: isUserAddressAvailable ? profile.address : '',
+          });
+        }
+      }, [profile]);
   return (
     
     <div className="p-4 border border-gray-300 rounded-md">
@@ -36,13 +48,17 @@ const DeliveryInformation:React.FunctionComponent<IRecipientInformationProps
           />
         </svg>
         <span className="text-xl font-bold">Delivery information</span>
-      </Typography.Title>
+        </Typography.Title>
+        {/* Check if user already upload delivery infos */}
+     
         <Form form={form} labelCol={{ span: 24 }} size="large">
         <Row gutter={16}>
-          <Col span={12}>
+            <Col span={12}>
+              
             <Form.Item
               name="orderName"
               label="Full name"
+              
               rules={[{ required: true, message: "Full name is missing" }]}
             >
               <Input />
@@ -65,8 +81,9 @@ const DeliveryInformation:React.FunctionComponent<IRecipientInformationProps
         >
           <Input />
         </Form.Item>
-      </Form>
-
+          </Form>
+          
+        
 
 
       

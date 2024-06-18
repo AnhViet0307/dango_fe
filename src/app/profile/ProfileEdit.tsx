@@ -39,10 +39,11 @@ const ProfileEdit: React.FunctionComponent = () => {
   const fullnameWatch = Form.useWatch("fullname", form);
   const emailWatch = Form.useWatch("email", form);
   const phoneWatch = Form.useWatch("phone", form);
-
+  const addressWatch = Form.useWatch("address", form);
+  
   const onDateChange: DatePickerProps["onChange"] = (date, dateString) => {
     const dob = date?.toDate();
-    setOpenDatePicker(!openDatePicker);
+    setOpenDatePicker(false);
     form.setFieldValue("dob", dob);
   };
 
@@ -58,7 +59,7 @@ const ProfileEdit: React.FunctionComponent = () => {
 
   const handleUpdateProfile = async (value: any) => {
     setIsLoading(true);
-    const { dob, fullname, phone } = value;
+    const { dob, fullname, phone,address } = value;
     let payload = {};
     if (dob) {
       payload = { ...payload, dob };
@@ -68,6 +69,9 @@ const ProfileEdit: React.FunctionComponent = () => {
     }
     if (phone) {
       payload = { ...payload, phone };
+    }
+    if (address) {
+      payload = { ...payload, address };
     }
     if (fileList && fileList.length > 0) {
       const storage = getStorage(app);
@@ -173,7 +177,7 @@ const ProfileEdit: React.FunctionComponent = () => {
               className="float-right text-sm underline cursor-pointer text-neutral-700"
               onClick={() => setOpenDatePicker(!openDatePicker)}
             >
-              Edit
+               {openDatePicker ? 'Close' : 'Edit'}
             </span>
           </Form.Item>
           <Form.Item
@@ -191,6 +195,23 @@ const ProfileEdit: React.FunctionComponent = () => {
               className="flex justify-between"
             >
               {phoneWatch || <span className="text-neutral-400">Not provided</span>}
+            </Typography.Text>
+      </Form.Item>
+      <Form.Item
+            name="address"
+            label={<span className="text-sm font-medium">Address</span>}
+            initialValue={profile?.address}
+          >
+            <Typography.Text
+              editable={{
+                icon: (
+                  <span className="text-sm underline text-neutral-700">Edit</span>
+                ),
+                onChange: (value) => form.setFieldValue("address", value),
+              }}
+              className="flex justify-between"
+            >
+              {addressWatch || <span className="text-neutral-400">Not provided</span>}
             </Typography.Text>
           </Form.Item>
           <Form.Item>

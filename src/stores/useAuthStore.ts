@@ -7,6 +7,7 @@ type State = {
   token: TokenPayload;
   loggedIn: boolean;
   profile: IUser | null;
+  rehydrated: boolean;
 };
 
 type Action = {
@@ -23,21 +24,28 @@ const initState: State = {
   },
   loggedIn: false,
   profile: null,
+  rehydrated: false,
 };
 
 export const useAuthStore = create(
   persist<State & Action>(
-    (set) => ({
+    (set, get) => ({
       ...initState,
-      setToken: (token: TokenPayload) => set((state) => ({ token })),
-      setLoggedIn: (status: boolean) => set((state) => ({ loggedIn: status })),
+      setToken: (token: TokenPayload) => set(() => ({ token })),
+      setLoggedIn: (status: boolean) => set(() => ({ loggedIn: status })),
       setProfile: (updatedProfile: any) =>
         set((state) => ({ profile: { ...state.profile, ...updatedProfile } })),
       reset: () => set({ ...initState }),
+      rehydrated: false,
     }),
     {
       name: "auth", // unique name
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          state.rehydrated = true;
+        }
+      },
     }
   )
 );

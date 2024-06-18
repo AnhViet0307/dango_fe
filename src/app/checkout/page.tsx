@@ -16,30 +16,45 @@ import { useAppStore } from "@/stores/useAppStore";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocation } from 'react-router-dom';
 import AuthProtectedRoute from '@/components/AuthProtectedRoute';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 
 export default function Page() {
 
-const navigate = useRouter();
+  const navigate = useRouter();
   const [data, setData] = useState<ICart[]>([]);
   //const { state } = useLocation();
   const [form] = Form.useForm();
   const setIsLoading = useAppStore((state) => state.setIsLoading);
-  const removeFromCart = useCartStore((state) => state.removeFromCart); 
-  
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
+  const loggedIn = useAuthStore((state) => state.loggedIn);
+  const rehydrated = useAuthStore((state) => state.rehydrated);
+  const userProfile = useAuthStore((state) => state.profile);
+const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    const orders = query.get('orders');
-    if (orders) {
-      setData(JSON.parse(decodeURIComponent(orders)));
+    if (!rehydrated) {
+      // Auth state is still being rehydrated
+      return;
     }
-  }, []);
+
+    if (!loggedIn) {
+      navigate.push('/auth/login');
+    } else {
+      const query = new URLSearchParams(window.location.search);
+      const orders = query.get('orders');
+      if (orders) {
+        setData(JSON.parse(decodeURIComponent(orders)));
+      }
+      setLoading(false);
+    }
+  }, [loggedIn, rehydrated]);
 
 
   const handlePay = async () => {
     setIsLoading(true);
     try {
-       await form.validateFields(); // Validate the form fields
+      await form.validateFields(); // Validate the form fields
       const formData = form.getFieldsValue(); // Get form data
       const aaa: ICart[] = data; // Use data from state (or any other source)
       
@@ -78,29 +93,38 @@ const navigate = useRouter();
           message: error.message,
         });
       }
-    //   const serializedData = encodeURIComponent(JSON.stringify({ status: "failed" }));
-    // navigate.push(`/checkout/confirmation?data=${serializedData}`);
+      //   const serializedData = encodeURIComponent(JSON.stringify({ status: "failed" }));
+      // navigate.push(`/checkout/confirmation?data=${serializedData}`);
     }
   };
 
-
+// if (loading) {
+//     return <div>Loading...</div>; // You can replace this with a spinner or loading indicator
+//   }
 
   return (
-    <AuthProtectedRoute>
-    <div >
-      <Topbar />
-      <div className='px-64 mt-16 align-auto'>
-        <DeliveryInformation form={form} />
-        <div className="mt-5 p-4 border border-gray-300 rounded-md">
-          <div className="bg-gray-100 rounded-md p-4 mb-3">
-              <OrderSummary/>
+     <>
+      {loggedIn ? (
+        <div >
+          <Topbar />
+          <div className='px-64 mt-16 align-auto'>
+            <DeliveryInformation form={form} profile={userProfile} />
+            <div className="mt-5 p-4 border border-gray-300 rounded-md">
+              <div className="bg-gray-100 rounded-md p-4 mb-3">
+                <OrderSummary />
               </div >
+            </div>
+            <OrderSum orders={data} onPay={handlePay} />
+            {/* <OrderForm /> */}
+          </div>
         </div>
-        <OrderSum orders={data} onPay={handlePay} />
-        {/* <OrderForm /> */}
-      </div>
-      </div>
-      </AuthProtectedRoute>
-  )
-  
+  ) : (
+        <>
+        </>
+      )}
+    </>
+  );
 }
+
+
+
