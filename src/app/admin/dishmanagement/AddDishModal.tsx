@@ -66,29 +66,52 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
     label: item.name,
   }));
 
-
+  enum DishCategories{
+    Pizza='Pizza',
+      Pasta='Pasta',
+      Burgers='Burgers',
+     Sushi= 'Sushi',
+      INDIAN='Indian',
+      Chinese='Chinese',
+      Mexican='Mexican',
+      Thai='Thai',
+      Sandwiches='Sandwiches',
+      Salads= 'Salads',
+      Korean_Food='Korean Food',
+      Seafood='Seafood',
+      Soups='Soups',
+     Breakfast= 'Breakfast',
+      Desserts='Desserts',
+    Vegetarian=  'Vegetarian',
+    Vegan=  'Vegan',
+    BBQ=  'BBQ',
+     Italian= 'Italian',
+     Japanese= 'Japanese',
+  }
+  const categoryOptions = Object.values(DishCategories).map((category) => ({
+        value: category,
+        label: category
+    }));
 
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
-    if (newFileList.length > 3) {
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+    if (fileList.length > 3) {
       message.error('You can only upload up to 3 images at a time.');
       return;
     }
+    
     setFileList(fileList);
   };
 
  const beforeUploadFile = (file: RcFile) => {
-    if (fileList.length >= 3) {
-      message.error('You can only upload up to 3 images.');
-      return Upload.LIST_IGNORE; // Prevent further uploads
-    }
+   
     
     const msgs = validator(file);
-    msgs.forEach((msg) => message.error(msg));
+    msgs.map((msg)=> message.error(msg));
     
-    return msgs.length === 0; // Allow upload if no validation messages
+    return msgs.length == 0||Upload.LIST_IGNORE; // Allow upload if no validation messages
   };
 
   const handleAddNewDish = async (values: any) => {
@@ -114,6 +137,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
       ...rest,
       name: name,
       productid: aaa,
+      score:0,
       images: [...imageURLs],
       
     };
@@ -181,7 +205,13 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
             </Form.Item>
           </Col>
         </Row>
-        
+        <Row gutter={18}>
+          <Col span={18}>
+          <Form.Item name="category" label="Category">
+              <Select options={categoryOptions} placeholder="Category" />
+            </Form.Item>
+            </Col>  
+        </Row>
         <Row gutter={18}>
           <Col span={18}>
             <Form.Item name="aaa" label="Product">

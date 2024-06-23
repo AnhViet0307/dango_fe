@@ -267,9 +267,14 @@ const EditDishModal: React.FunctionComponent<IEditDishModalProps> = ({
           labelCol={{ span: 24 }}
           onFinish={(values) => handleEditNewDish(values)}
         >
+          <Row>
+          <Col span={18}>
           <Form.Item name="name" label="Name" initialValue={dish?.name}>
             <Input placeholder="Product name" />
           </Form.Item>
+          </Col>
+            
+          </Row>
           <Row>
             <Col span={24}>
               <Form.Item

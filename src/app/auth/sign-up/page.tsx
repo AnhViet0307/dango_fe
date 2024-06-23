@@ -19,7 +19,7 @@ const Page: React.FunctionComponent = () => {
     setIsLoading(true);
     const payload = {
       ...rest,
-      likeddish:null,
+      likeddish:["1","2"],
     };
     try {
       await signUp(payload);

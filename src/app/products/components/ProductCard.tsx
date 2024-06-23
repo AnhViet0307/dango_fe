@@ -22,7 +22,7 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = ({ data }) => {
 
   const handleClickCart: React.MouseEventHandler<HTMLDivElement> = (event) => {
     if (event.target !== buttonRef.current) {
-      navigate.push(`products/${data.id}`);
+      navigate.push(`/products/${data.id}`);
     }
   };
 

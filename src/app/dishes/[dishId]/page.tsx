@@ -81,12 +81,12 @@ const DishDetail: React.FC = () => {
         
           if (user && user.likeddish.includes(dishId.toString()))
           {
-            console.log("LIke is true");
+            
             setLike(true);
             const LB2 = document.getElementById('likebtn') as HTMLDivElement;
             LB2.style.pointerEvents = 'none';
           } else {
-            console.log("LIke is false");
+            
             setLike(false);
           }
         
@@ -124,8 +124,7 @@ const DishDetail: React.FC = () => {
       LB.style.pointerEvents = 'none';
       }
     let updatedscore: number = like ? dish?.score -1 : dish?.score + 1;
-    console.log("aaaaa ",  dish?.score)
-    console.log("bbbbb ",updatedscore)
+  
       const { score } = values;
     
     
@@ -134,7 +133,7 @@ const DishDetail: React.FC = () => {
     setIsLoading(true);
 
 
-    console.log("LIKE",like);
+    
 
       try {
         if (!like) {

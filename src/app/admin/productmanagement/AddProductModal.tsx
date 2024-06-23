@@ -71,8 +71,8 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
-    if (newFileList.length > 3) {
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+    if (fileList.length > 3) {
       message.error('You can only upload up to 3 images at a time.');
       return;
     }

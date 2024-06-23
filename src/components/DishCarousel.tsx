@@ -48,7 +48,7 @@ const DishCarousel = () => {
     fetchDishData.current();
   }, [isLoggedIn,user?.id]);
 
-  const itemsToShow = isLoggedIn ? recommendations : dishes;
+  const itemsToShow = (isLoggedIn && user && user.likeddish!=null) ? recommendations : dishes;
 
 
 return (
