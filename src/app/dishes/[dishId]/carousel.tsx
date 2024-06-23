@@ -4,11 +4,11 @@ import Carousel from '@itseasy21/react-elastic-carousel';
 import ProductCard from '@/app/products/components/ProductCard';
 import { useAppStore } from '@/stores/useAppStore';
 import { useProductsByIdsStore } from '@/stores/useProductsByIdsStore';
-import { getProductsByIds } from "@/apis/product.api";
+import { getProductById } from "@/apis/product.api";
 import { IProduct } from '@/interfaces/IProduct';
 
 interface CustomCarouselProps {
-  productIds: number[];
+  productIds: string[];
 }
 
 const CustomCarousel: React.FC<CustomCarouselProps> = ({ productIds }) => {
@@ -22,8 +22,15 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({ productIds }) => {
     fetchProductData.current = async () => {
       setIsLoading(true);
       try {
-        const { data: productData } = await getProductsByIds(productIds);
-        setProductsByIds(productData);
+        console.log(productIds);
+        if (productIds == null) return;
+
+        const fetchedProducts: IProduct[] = [];
+        for (const id of productIds) {
+          const { data: productData } = await getProductById(id);
+          fetchedProducts.push(productData);
+        }
+        setProductsByIds(fetchedProducts);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -34,7 +41,7 @@ const CustomCarousel: React.FC<CustomCarouselProps> = ({ productIds }) => {
   }, [productIds, setIsLoading, setProductsByIds]);
 
   return (
-    <Carousel isRTL={false} itemsToShow={4}>
+    <Carousel isRTL={false} itemsToShow={5}>
       {productsByIds.map((product: IProduct) => (
         <ProductCard key={product.id} data={product} />
       ))}

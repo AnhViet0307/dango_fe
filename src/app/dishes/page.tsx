@@ -16,6 +16,7 @@ import Records from "@p/data/product.json";
 import { IDish } from "@/interfaces/IDish";
 import { useDishStore } from "@/stores/useDishStore";
 import { getAllDish, searchDishByName } from "@/apis/dish.api";
+import Banner from "./Banner";
 
 
 
@@ -81,7 +82,7 @@ const DishesPage: React.FC = () => {
   return (
     <div>
       <Topbar />
-      
+      <Banner />
       <Row className="mt-16 " gutter={56}>
         
         <Col className="mx-20">
@@ -113,7 +114,7 @@ const DishesPage: React.FC = () => {
                 filteredDishes ? filteredDishes.length : dishes.length
               } dishes`}</span>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <span className="text-base text-neutral-500">Sort by</span>
               <Select
                 defaultValue="newest"
@@ -125,7 +126,7 @@ const DishesPage: React.FC = () => {
                 ]}
                 onChange={(value) => setSortBy(value)}
               />
-            </div>
+            </div> */}
           </div>
 
           {!isLoading ? (

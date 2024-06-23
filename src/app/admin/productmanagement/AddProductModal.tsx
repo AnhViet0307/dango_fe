@@ -71,7 +71,11 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
+    if (newFileList.length > 3) {
+      message.error('You can only upload up to 3 images at a time.');
+      return;
+    }
     setFileList(fileList);
   };
 
@@ -118,7 +122,7 @@ const AddProductModal: React.FunctionComponent<IAddProductModalProps> = ({
       notification.success({
         message: "Create new product successfully!",
         duration: 0.5,
-        onClose: () => navigate.refresh(),
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);

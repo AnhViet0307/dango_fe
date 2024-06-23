@@ -115,7 +115,11 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
     fetchProductData.current();
   }, []);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
+    if (newFileList.length > 3) {
+      message.error('You can only upload up to 3 images at a time.');
+      return;
+    }
     setFileList(fileList);
   };
 
@@ -126,14 +130,14 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
   };
 
   const handleEditNewProduct = async (values: any) => {
-    const { images, categoryId, ...rest } = values;
+    const { images, categoryId,brandName, ...rest } = values;
     const imageURLs =
       images &&
       (await Promise.all(
         images?.fileList.map(async (image: any) => {
           const storageRef = ref(
             storage,
-            `${categoryId === 1 ? "perfume" : "cosmetic"}/${image.name}`
+            `${categoryId}/${brandName}/${name}/${image.name}`
           );
           await uploadBytes(storageRef, image.originFileObj);
           const imageURL = await getDownloadURL(storageRef);
@@ -143,6 +147,7 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
 
     const payload = {
       ...rest,
+      brandName:brandName,
       categoryId: categoryId,
       sold: 0,
       ...(imageURLs && { images: [...imageURLs] }),
@@ -154,8 +159,8 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
       setIsLoading(false);
       notification.success({
         message: "Update product successfully!",
-        duration: 0.25,
-        onClose: () => navigate.refresh(),
+        duration: 0.5,
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);
@@ -188,8 +193,8 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
       setIsLoading(false);
       notification.success({
         message: "Delete product successfully!",
-        duration: 0.25,
-        onClose: () => navigate.refresh(),
+        duration: 0.5,
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);
@@ -250,7 +255,7 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
           <Row>
             <Col span={24}>
               <Form.Item
-                name="desc"
+                name="description"
                 label="Description"
                 initialValue={product?.description}
               >
@@ -291,7 +296,7 @@ const EditProductModal: React.FunctionComponent<IEditProductModalProps> = ({
             </Col>
             <Col span={8}>
               <Form.Item
-                name="inventory"
+                name="stock"
                 label="Inventory"
                 initialValue={product?.stock}
               >

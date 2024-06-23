@@ -129,7 +129,7 @@ const ProductsPage: React.FC = () => {
                 filteredProducts ? filteredProducts.length : products.length
               } products`}</span>
             </div>
-            <div className="flex items-center gap-2">
+            {/* <div className="flex items-center gap-2">
               <span className="text-base text-neutral-500">Sort by</span>
               <Select
                 defaultValue="newest"
@@ -143,7 +143,7 @@ const ProductsPage: React.FC = () => {
                 ]}
                 onChange={(value) => setSortBy(value)}
               />
-            </div>
+            </div> */}
           </div>
 
           {!isLoading ? (

@@ -29,6 +29,11 @@ export const deleteUserById = (userId: string | number) => {
 export const changeUserPassword = (data: any) => {
   return httpRequest.patch("/users/change-password", data);
 };
+export const updateUserLike = (data: any) => {
+  return httpRequest.patch("/users/update-like", data);
+};
+
+
 
 export const changeUserStatus = (userId: string | number, isActive: 0 | 1) => {
   return httpRequest.patch(`users/change-status/${userId}/${isActive}`);

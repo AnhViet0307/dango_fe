@@ -159,7 +159,7 @@ const ProfileEdit: React.FunctionComponent = () => {
               {emailWatch || <span className="text-neutral-400">Not provided</span>}
             </Typography.Text>
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="dob"
             label={<span className="text-sm font-medium">Date of birth</span>}
           >
@@ -179,7 +179,7 @@ const ProfileEdit: React.FunctionComponent = () => {
             >
                {openDatePicker ? 'Close' : 'Edit'}
             </span>
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
             name="phone"
             label={<span className="text-sm font-medium">Phone number</span>}

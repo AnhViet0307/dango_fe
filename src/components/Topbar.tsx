@@ -65,6 +65,7 @@ const Topbar: React.FunctionComponent = () => {
                 setOpen(!open);
               logOut();
               navigate.push("/");
+              navigate.refresh();
           },
           label: "Logout",
         },

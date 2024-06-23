@@ -14,9 +14,15 @@ const Page: React.FunctionComponent = () => {
   const setIsLoading = useAppStore((state) => state.setIsLoading);
 
   const handleSignUp = async (values: any) => {
+    const { ld, ...rest } = values;
+
     setIsLoading(true);
+    const payload = {
+      ...rest,
+      likeddish:null,
+    };
     try {
-      await signUp(values);
+      await signUp(payload);
       setIsLoading(false);
       notification.success({
         message: "Create new account successfully!",

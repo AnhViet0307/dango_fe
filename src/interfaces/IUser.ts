@@ -13,5 +13,6 @@ export interface IUser {
     updatedAt: string | Date;
     deletedAt?: any | Date;
     avatar?: string
+    likeddish:string[]
     OrderModels: any[];
 }

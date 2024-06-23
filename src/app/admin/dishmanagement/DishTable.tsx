@@ -150,24 +150,24 @@ const DishTable: React.FunctionComponent = () => {
       width: "20%",
     },
     
-    // {
-    //   title: "",
-    //   dataIndex: "edit",
-    //   key: "edit",
-    //   width: "5%",
-    //   render: (value, record, index) => (
-    //     <span
-    //       className="cursor-pointer text-primary"
-    //       onClick={() => {
-    //         setEdittedDish(record);
-    //         console.log(record);
-    //         setShow(true);
-    //       }}
-    //     >
-    //       Edit
-    //     </span>
-    //   ),
-    // },
+    {
+      title: "",
+      dataIndex: "edit",
+      key: "edit",
+      width: "5%",
+      render: (value, record, index) => (
+        <span
+          className="cursor-pointer text-primary"
+          onClick={() => {
+            setEdittedDish(record);
+            console.log(record);
+            setShow(true);
+          }}
+        >
+          Edit
+        </span>
+      ),
+    },
   ];
 
   return (

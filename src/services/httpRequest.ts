@@ -23,7 +23,9 @@ class HttpRequest {
   async patch(url: string, data?: any, config?: IConfig) {
     return this.api.patch(url, data, config);
   }
-
+  async put2(url: string, config?: IConfig) {
+    return this.api.put(url, config);
+  }
   async delete(url: string, config?: IConfig) {
     return this.api.delete(url, config);
   }

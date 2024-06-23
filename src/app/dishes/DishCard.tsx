@@ -29,6 +29,7 @@ const DishCard: React.FunctionComponent<IDishCardProps> = ({ data }) => {
 
   return (
     <Card
+      
       hoverable
       size="default"
       cover={

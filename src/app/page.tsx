@@ -10,13 +10,26 @@ import Image from "next/image";
 import reason1Image from "@p/fresh.jpg"
 import reason2Image from "@p/variety.jpg"
 import reason3Image from "@p/delivery.jpg"
+import DishCarousel from '@/components/DishCarousel';
 export default function Page() {
   
   return (
     <div>
       <Topbar />
       <MainBanner />
+      
+      {/* dish rec */}
+      <Row justify="center" align="middle" style={{ minHeight: '300px' }}>
+        {/* Heading */}
+        <Col span={24} className="text-center mb-2 text-3xl mt-5 font-semibold">
+          <span>Satisfy that</span><span className="text-primary_yellow"> Craving</span><span> with our dish recommendation!</span>
+        </Col>
+        <Col span={16}>
+        <DishCarousel />
+        </Col>
+      </Row>
 
+      {/* best seller */}
       <Row justify="center" align="middle" style={{ minHeight: '300px' }}>
         {/* Heading */}
         <Col span={24} className="text-center mb-2 text-3xl mt-5 font-semibold">

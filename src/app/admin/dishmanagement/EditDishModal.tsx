@@ -6,12 +6,15 @@ import {
 } from "@/apis/product.api";
 
 import {
-  deleteDishById, getDishById, updateDishById
-} from "@/apis/dish.api"
-import { IDish } from "@/interfaces/IDish";
+  deleteDishById,
+  getDishById,
+  updateDishById,
+  
+}from "@/apis/dish.api"
 import { app } from "@/firebase";
 import { IProduct } from "@/interfaces/IProduct";
-
+import { useBrandStore } from "@/stores/useBrandStore";
+import { useCategoriesStore } from "@/stores/useCategoryStore";
 import { useProductStore } from "@/stores/useProductStore";
 import validator from "@/utils/validateImage";
 import { UploadOutlined } from "@ant-design/icons";
@@ -45,13 +48,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useDishStore } from "@/stores/useDishStore";
 
-interface IEditProductModalProps {
+interface IEditDishModalProps {
   show: boolean;
   setShow: any;
   data: IProduct;
 }
 
-const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
+const EditDishModal: React.FunctionComponent<IEditDishModalProps> = ({
   show,
   setShow,
   data,
@@ -59,38 +62,42 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
   const storage = getStorage(app);
   console.log(storage);
   const navigate = useRouter();
-
-  const products = useProductStore((state) => state.product);
-  //const setProduct = useProductStore((state) => state.setProduct);
-
+  //const categories = useCategoriesStore((state) => state.categories);
+  //const brands = useBrandStore((state) => state.brands);
   const dish = useDishStore((state) => state.dish);
   const setDish = useDishStore((state) => state.setDish);
 
+  const products = useProductStore((state) => state.products);
+  const setProduct = useProductStore((state) => state.setProduct);
+
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  // const [items, setItems] = useState<string[]>(brands.map((item) => item.name));
+  //const [items, setItems] = useState<string[]>(products.map((item) => item.name));
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [recproduct, setRecProduct] = useState<string[]>([]);
 
-  const fetchProductData = useRef<any>();
-    const fetchDishData = useRef<any>();
+  const fetchDishData = useRef<any>();
   const inputRef = useRef<InputRef>(null);
 
   const [form] = Form.useForm();
 
-  const productOptions = products.map((item) => ({
-    value: item.id,
-    label: item.name,
-  }));
+  // const categoryOptions = categories.map((item) => ({
+  //   value: item.id,
+  //   label: item.name,
+  // }));
 
-
+  // const brandOptions = brands.map((item) => ({
+  //   value: item.name,
+  //   label: item.name,
+  // }));
 
   useEffect(() => {
-    fetchProductData.current = async () => {
+    fetchDishData.current = async () => {
       setIsLoading(true);
       try {
-        const { data: productData } = await getProductById(data.id);
+        const { data: dishData } = await getDishById(data.id);
         const files: any = await Promise.all(
-          productData.images.map(async (item: any) => {
+          dishData.images.map(async (item: any) => {
             const fileRef = ref(storage, item);
             const blob = await getBlob(fileRef);
             const fileData = await getMetadata(fileRef);
@@ -105,9 +112,12 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
             return RcFile;
           })
         );
-        setProduct(productData);
+
+        setDish(dishData);
+
         setFileList(files);
-        if (product) setIsLoading(false);
+        console.log(dish);
+        if (dish) setIsLoading(false);
       } catch (error) {
         setTimeout(() => {
           setShow(false);
@@ -115,10 +125,21 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
         console.log(error);
       }
     };
-    fetchProductData.current();
+    fetchDishData.current();
   }, []);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+  const productOptions = products.map((product) => ({
+    value: product.id.toString(),
+    label: product.name,
+  }));
+  
+  const selectedProductIds = dish?.productid?.map((id) => id.toString()) || [];
+
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
+    if (newFileList.length > 3) {
+      message.error('You can only upload up to 3 images at a time.');
+      return;
+    }
     setFileList(fileList);
   };
 
@@ -128,15 +149,15 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
     return msgs.length == 0 || Upload.LIST_IGNORE;
   };
 
-  const handleEditNewProduct = async (values: any) => {
-    const { images, categoryId, ...rest } = values;
+  const handleEditNewDish = async (values: any) => {
+    const { images,aaa,  ...rest } = values;
     const imageURLs =
       images &&
       (await Promise.all(
         images?.fileList.map(async (image: any) => {
           const storageRef = ref(
             storage,
-            `${categoryId === 1 ? "perfume" : "cosmetic"}/${image.name}`
+             `dishes/${name}/${image.name}`
           );
           await uploadBytes(storageRef, image.originFileObj);
           const imageURL = await getDownloadURL(storageRef);
@@ -146,7 +167,7 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
 
     const payload = {
       ...rest,
-      
+      productid: aaa,
       ...(imageURLs && { images: [...imageURLs] }),
     };
 
@@ -156,8 +177,8 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
       setIsLoading(false);
       notification.success({
         message: "Update dish successfully!",
-        duration: 0.25,
-        onClose: () => navigate.refresh(),
+        duration: 1,
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);
@@ -172,26 +193,26 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
     setName(event.target.value);
   };
 
-  const addItem = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
-  ) => {
-    e.preventDefault();
-    setItems([...items, name || `New item`]);
-    setName("");
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
+  // const addItem = (
+  //   e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+  // ) => {
+  //   e.preventDefault();
+  //   // setItems([...items, name || `New item`]);
+  //   setName("");
+  //   setTimeout(() => {
+  //     inputRef.current?.focus();
+  //   }, 0);
+  // };
 
-  const handleDeleteDish = async () => {
+  const handleDeleteProduct = async () => {
     setIsLoading(true);
     try {
       await deleteDishById(data.id);
       setIsLoading(false);
       notification.success({
         message: "Delete dish successfully!",
-        duration: 0.25,
-        onClose: () => navigate.refresh(),
+        duration: 1,
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);
@@ -204,7 +225,7 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
 
   return (
     <Modal
-      title="Edit new product"
+      title="Edit dish"
       centered
       open={show}
       footer={[
@@ -213,7 +234,7 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
         <div className="flex justify-between">
           <Button
             loading={isLoading}
-            onClick={() => handleDeleteDish()}
+            onClick={() => handleDeleteProduct()}
             danger
             type="primary"
           >
@@ -222,6 +243,7 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
           <div className="flex gap-2">
             <Button onClick={() => setShow(false)}>Cancel</Button>
             <Button
+              className="bg-primary_blue"
               type="primary"
               loading={isLoading}
               onClick={() => {
@@ -245,66 +267,74 @@ const EditDishModal: React.FunctionComponent<IEditProductModalProps> = ({
           labelCol={{ span: 24 }}
           onFinish={(values) => handleEditNewDish(values)}
         >
-          <Form.Item name="name" label="Name" initialValue={product?.name}>
+          <Form.Item name="name" label="Name" initialValue={dish?.name}>
             <Input placeholder="Product name" />
           </Form.Item>
           <Row>
             <Col span={24}>
               <Form.Item
-                name="desc"
+                name="description"
                 label="Description"
-                initialValue={product?.description}
+                initialValue={dish?.description}
               >
                 <Input.TextArea rows={3} placeholder="Description" />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={18}>
-            <Col span={8}>
+          
+          {/* <Row gutter={18}>
+            <Col span={12}>
               <Form.Item
-                name="importPrice"
-                label="Import price"
+                name="brandName"
+                label="Brand"
                 initialValue={
-                  product && product.importPrice
-                    ? JSON.parse(product.importPrice as string)
-                    : null
+                  brands.find((item) => item.id === product?.brandId)?.name
                 }
               >
-                <InputNumber
-                  min={0}
-                  placeholder="Import price"
-                  className="w-full"
+                <Select
+                  placeholder="Brand"
+                  dropdownRender={(menu) => (
+                    <>
+                      {menu}
+                      <Divider style={{ margin: "8px 0" }} />
+                      <Space style={{ padding: "0 8px 4px" }}>
+                        <Input
+                          placeholder="Please enter item"
+                          ref={inputRef}
+                          value={name}
+                          onChange={onNameChange}
+                        />
+                        <Button
+                          type="primary"
+                          onClick={addItem}
+                          className="bg-primary"
+                        >
+                          Add
+                        </Button>
+                      </Space>
+                    </>
+                  )}
+                  options={brandOptions}
                 />
               </Form.Item>
             </Col>
-            <Col span={8}>
+            <Col span={12}>
               <Form.Item
-                name="price"
-                label="Price"
-                initialValue={
-                  product && product.price
-                    ? JSON.parse(product.price as unknown as string)
-                    : null
-                }
+                name="categoryId"
+                label="Categories"
+                initialValue={product?.categoryId}
               >
-                <InputNumber min={0} placeholder="Price" className="w-full" />
+                <Select options={categoryOptions} placeholder="Category" />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                name="inventory"
-                label="Inventory"
-                initialValue={product?.stock}
-              >
-                <InputNumber
-                  min={0}
-                  placeholder="Inventory"
-                  className="w-full"
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-
+          </Row> */}
+            <Row gutter={18}>
+                <Col span={18}>
+                  <Form.Item name="aaa" label="Related Product">
+                    <Select mode="multiple" allowClear options={productOptions} placeholder="Product" defaultValue={selectedProductIds}/>
+                  </Form.Item>
+                </Col>
+            </Row>
           <Form.Item name="images" label="Product images">
             <Upload
               listType="picture-card"

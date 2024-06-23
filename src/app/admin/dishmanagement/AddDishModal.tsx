@@ -62,7 +62,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
   const products = useProductStore((state) => state.products);
 
   const productOptions = products.map((item) => ({
-    value: item.id,
+    value: item.id.toString(),
     label: item.name,
   }));
 
@@ -71,14 +71,24 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const onChangeFile: UploadProps["onChange"] = async ({ fileList }) => {
+  const onChangeFile: UploadProps["onChange"] = async ({ fileList:newFileList }) => {
+    if (newFileList.length > 3) {
+      message.error('You can only upload up to 3 images at a time.');
+      return;
+    }
     setFileList(fileList);
   };
 
-  const beforeUploadFile = (file: RcFile) => {
+ const beforeUploadFile = (file: RcFile) => {
+    if (fileList.length >= 3) {
+      message.error('You can only upload up to 3 images.');
+      return Upload.LIST_IGNORE; // Prevent further uploads
+    }
+    
     const msgs = validator(file);
-    msgs.map((msg) => message.error(msg));
-    return msgs.length == 0 || Upload.LIST_IGNORE;
+    msgs.forEach((msg) => message.error(msg));
+    
+    return msgs.length === 0; // Allow upload if no validation messages
   };
 
   const handleAddNewDish = async (values: any) => {
@@ -86,7 +96,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
     const storage = getStorage(app);
     const user = auth.currentUser;  //get current auth user
 
-    
+    ///const pIdToString= aaa.map()
 
     const imageURLs = await Promise.all(
       images.fileList.map(async (image: any) => {
@@ -103,7 +113,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
     const payload = {
       ...rest,
       name: name,
-      productid: aaa.map((id: string) => parseInt(id)),
+      productid: aaa,
       images: [...imageURLs],
       
     };
@@ -117,7 +127,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
       notification.success({
         message: "Create new dish successfully!",
         duration: 0.5,
-        onClose: () => navigate.refresh(),
+        onClose: () => setShow(false),
       });
     } catch (error: any) {
       console.log(error);
@@ -158,7 +168,7 @@ const AddDishModal: React.FunctionComponent<IAddProductModalProps> = ({
         onFinish={(values) => handleAddNewDish(values)}
       >
         <Form.Item name="name" label="Name">
-          <Input placeholder="Product name" />
+          <Input placeholder="Dish name" />
         </Form.Item>
         <Row>
           <Col span={24}>
