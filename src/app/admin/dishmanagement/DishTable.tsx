@@ -12,6 +12,7 @@ import {
 import React, { useRef, useState } from "react";
 // import Highlighter from "react-highlight-words";
 import EditProductModal from "./EditDishModal";
+import EditDishModal from "./EditDishModal";
 
 type DataIndex = keyof IDish;
 
@@ -149,7 +150,12 @@ const DishTable: React.FunctionComponent = () => {
       key: "description",
       width: "20%",
     },
-    
+    {
+      title: "Likes",
+      dataIndex: "score",
+      key: "score",
+      width: "10%",
+    },
     {
       title: "",
       dataIndex: "edit",
@@ -184,7 +190,7 @@ const DishTable: React.FunctionComponent = () => {
         className="mb-10"
       />
       {show && edittedDish && (
-        <EditProductModal show={show} setShow={setShow} data={edittedDish} />
+        <EditDishModal show={show} setShow={setShow} data={edittedDish} />
       )}
     </>
   );
