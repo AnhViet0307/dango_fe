@@ -66,10 +66,12 @@ const DishDetail: React.FC = () => {
         
   const fetchDishData = useRef<any>();
   console.log(user?.likeddish);
+  
   useEffect(() => {
  
     fetchDishData.current = async () => {
       setIsLoading(true);
+      
       try {
           //get like state
         
@@ -77,10 +79,12 @@ const DishDetail: React.FC = () => {
         setDish(dishData);
         setPreviewImage(dishData.images[0]);
         
-          if (user?.likeddish.includes(dishData.id.toString()))
+          if (user && user.likeddish.includes(dishId.toString()))
           {
             console.log("LIke is true");
             setLike(true);
+            const LB2 = document.getElementById('likebtn') as HTMLDivElement;
+            LB2.style.pointerEvents = 'none';
           } else {
             console.log("LIke is false");
             setLike(false);
@@ -94,7 +98,7 @@ const DishDetail: React.FC = () => {
       }
     };
     fetchDishData.current();
-  }, []);
+  }, [dishId,user]);
  
 
 
